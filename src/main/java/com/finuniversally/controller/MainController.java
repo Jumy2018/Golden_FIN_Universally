@@ -12,7 +12,7 @@ import com.finuniversally.service.CityService;
 
 @Controller
 public class MainController {
-	private static final Logger logs = Logger.getLogger(MainController.class.getName());
+	private static final Logger log = Logger.getLogger(MainController.class.getName());
 	
 	@Autowired
 	private CityService cityService;
