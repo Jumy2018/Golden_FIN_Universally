@@ -19,7 +19,7 @@ public class MainController {
 	
 	@RequestMapping(value={"/"},method={RequestMethod.GET})
 	public String head() {
-		log.info("集成这个日志废了我很长时间，配置文件中，不仅保存在文件夹中，还实时打印在控制台。11");
+		log.info("集成这个日志废了我很长时间，配置文件中，不仅保存在文件夹中，还实时打印在控制台。");
 		return "index";
 	}
 	@RequestMapping(value={"/index"},method={RequestMethod.GET})
