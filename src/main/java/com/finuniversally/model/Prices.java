@@ -1,18 +1,17 @@
 package com.finuniversally.model;
 
-import com.finuniversally.untils.Column;
-
+/**
+ * 价格表
+ * @author riseSun
+ *
+ * 2017年12月12日下午10:40:30
+ */
 public class Prices {
 	
-	@Column(name="sysmbol")
 	private String symbol;
-	@Column(name="bid")
 	private Double bid;
-	@Column(name="ask")
 	private Double ask;
-	@Column(name="high")
 	private Double high;
-	@Column(name="low")
 	private Double low;
 	
 	public String getSymbol() {
