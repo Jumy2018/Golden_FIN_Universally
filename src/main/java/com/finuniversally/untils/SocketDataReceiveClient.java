@@ -4,10 +4,6 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 /**
  * 
  * 接收TCP数据
@@ -15,19 +11,19 @@ import javax.servlet.ServletContextListener;
  *
  * 2017年12月10日上午7:06:23
  */
-public class Client  implements ServletContextListener {
-
+public class SocketDataReceiveClient  implements Runnable {
 	private Pattern compile = Pattern.compile("[a-zA-Z]{4};");
-
 	private final int MAX_SEMICOLONS = 11;
+	private Socket socket;
 
-	// 连接到服务器
-	public void go() {
-		try(
-			//Socket socket = new Socket("116.62.195.204", 12000);
-			Socket socket = new Socket("127.0.0.1",5000);
-			InputStream inputStream = socket.getInputStream();	
-				){
+	public SocketDataReceiveClient(Socket socket) {
+		super();
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		try(InputStream inputStream = socket.getInputStream();){
 			//HEAD;1000000;9000000;9000001;XAUUSD.e;50;1210.33;20171016162854;0;1;-2000; 
 			int content = -1;
 			StringBuilder sBuilder = new StringBuilder();
@@ -62,16 +58,4 @@ public class Client  implements ServletContextListener {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[]) {
-		new Client().go();
-	}
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		new Client().go();
-	}
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		System.out.println("无法再次为您提供tcp数据!");
-	}
-
 }
