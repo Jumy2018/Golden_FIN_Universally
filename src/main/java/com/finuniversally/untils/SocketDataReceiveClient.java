@@ -1,7 +1,9 @@
 package com.finuniversally.untils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  * 2017年12月10日上午7:06:23
  */
 public class SocketDataReceiveClient  implements Runnable {
-	private Pattern compile = Pattern.compile("[a-zA-Z]{4};");
+	private Pattern compile = Pattern.compile("HEAD;");
 	private final int MAX_SEMICOLONS = 11;
 	private Socket socket;
 
@@ -57,5 +59,8 @@ public class SocketDataReceiveClient  implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		new SocketDataReceiveClient(new Socket("127.0.0.1",5000)).run();
 	}
 }
