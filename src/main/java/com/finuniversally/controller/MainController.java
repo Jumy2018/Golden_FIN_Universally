@@ -19,7 +19,7 @@ public class MainController {
 	
 	@RequestMapping(value={"/"},method={RequestMethod.GET})
 	public String head() {
-		return "index";
+		return "test";
 	}
 	@RequestMapping(value={"/index"},method={RequestMethod.GET})
 	public String index(Model model) throws Exception{
