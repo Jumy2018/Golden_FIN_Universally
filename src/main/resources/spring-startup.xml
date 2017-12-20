@@ -3,63 +3,103 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://mybatis.org/schema/mybatis-spring
+	http://mybatis.org/schema/mybatis-spring.xsd">
+
 	<mvc:annotation-driven />
 	
-
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/scripts/" mapping="/scripts/**" />
+	
 	<context:component-scan base-package="com.finuniversally" />
+ 	
+	
+	<!-- 启用注解式事务处理 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:jdbc.properties" />
 	</bean>
-	<!-- 数据库相关 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+
+	<!-- 本地数据库相关 -->
+	<bean id="dataSourceLocal" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.local.driver}" />
+		<property name="url" value="${jdbc.local.url}" />
+		<property name="username" value="${jdbc.local.username}" />
+		<property name="password" value="${jdbc.local.password}" />
 		<!-- 初始化连接大小 -->
-		<property name="initialSize" value="${jdbc.initialSize}"></property>
+		<property name="initialSize" value="${jdbc.local.initialSize}"></property>
 		<!-- 连接池最大数量 -->
-		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="maxActive" value="${jdbc.local.maxActive}"></property>
 		<!-- 连接池最大空闲 -->
-		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="maxIdle" value="${jdbc.local.maxIdle}"></property>
 		<!-- 连接池最小空闲 -->
-		<property name="minIdle" value="${jdbc.minIdle}"></property>
+		<property name="minIdle" value="${jdbc.local.minIdle}"></property>
 		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait" value="${jdbc.maxWait}"></property>
+		<property name="maxWait" value="${jdbc.local.maxWait}"></property>
 	</bean>
-	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<!-- 香港数据库相关 -->
+	<bean id="dataSourceHongKong" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.hongkong.driver}" />
+		<property name="url" value="${jdbc.hongkong.url}" />
+		<property name="username" value="${jdbc.hongkong.username}" />
+		<property name="password" value="${jdbc.hongkong.password}" />
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${jdbc.hongkong.initialSize}"></property>
+		<!-- 连接池最大数量 -->
+		<property name="maxActive" value="${jdbc.hongkong.maxActive}"></property>
+		<!-- 连接池最大空闲 -->
+		<property name="maxIdle" value="${jdbc.hongkong.maxIdle}"></property>
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${jdbc.hongkong.minIdle}"></property>
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${jdbc.hongkong.maxWait}"></property>
+	</bean>
+	
+	<bean id="multipleDataSource" class="com.finuniversally.untils.MultipleDataSource">
+        <property name="defaultTargetDataSource" ref="dataSourceLocal"/>
+        <property name="targetDataSources">
+            <map>
+                <entry key="dataSourceLocal" value-ref="dataSourceLocal"/>
+                <entry key="dataSourceHongKong" value-ref="dataSourceHongKong"/>
+            </map>
+        </property>
+    </bean>
+    
+	<!-- spring和MyBatis-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描mapping.xml文件
-		<property name="mapperLocations" value="classpath:com/finuniversally/mapping/*.xml"></property>-->
+		<property name="dataSource" ref="multipleDataSource"/>
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
 	</bean>
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.finuniversally.dao" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	<!-- 事务管理 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="multipleDataSource"/>
 	</bean>
+		
 	<!-- 视图解析器:定义跳转的文件的前后缀 -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />  <!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
 	</bean>
-	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/images/" mapping="/images/**" />
-	<mvc:resources location="/scripts/" mapping="/scripts/**" />
+
 </beans>

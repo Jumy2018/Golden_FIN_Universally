@@ -22,12 +22,16 @@ public abstract class StatisticsVo {
 	private double opsitionGainAndLoss;// 持仓盈亏
 	
 	//setter,getter...
+	/**
+	 * 净头寸 = 多总持仓-空中持仓
+	 * @return
+	 * @author riseSun
+	 * 2017年12月13日下午10:08:15
+	 */
 	public double getNetPosition() {
-		return netPosition;
+		return multipleTotalHolding - emptyTotalHolding;
 	}
-	public void setNetPosition(double netPosition) {
-		this.netPosition = netPosition;
-	}
+
 	public double getNetPositionHourly() {
 		return netPositionHourly;
 	}

@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.finuniversally.untils.ConfigUtil;
 import com.finuniversally.untils.SocketDataReceiveClient;
 
 /**
@@ -23,6 +24,9 @@ public class InitSocketDataReceiveListener implements ServletContextListener{
 	//初始化所有的TCP数据监听
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		if(!ConfigUtil.getBoolValue(ConfigUtil.INIT_SOCKETDATA_RECEIVE_LISTENER_ENABLE)) {
+			return ;
+		}
 		//75平台
 		Socket socket75 = null;
 		//76平台
