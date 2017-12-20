@@ -1,0 +1,72 @@
+﻿* {
+	margin: 0px;
+	padding: 0px;
+}
+#page {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.div1 { 
+	width:100%; height:6%; position:absolute; top:0px; left:0px; bottom:0px;
+	background-color:rgba(43, 54, 67, 1);
+} 
+.div2 { 
+	width:100%; height:auto; position:absolute; top:6%; left:0px; bottom:0px; right:0px;
+	background-color:rgba(54, 65, 80, 1);
+} 
+.div3 { 
+	width:15%; height:auto; top:0px; left:0px; bottom:0px; right:0px; position:absolute;
+} 
+.div4 { 
+	width:auto; position:absolute; right:0px;
+	height:auto; 
+	top:0px; 
+	left:15%; 
+	bottom:0px;
+	background-color:rgba(241, 243, 251, 1);
+} 
+.search1 {
+	position:absolute;
+	height:8%;
+	width:auto;
+	top:11%; 
+	left:2%; 
+	right:0px;
+	bottom:0px;
+	background-color:white;
+	border:none;
+  	border-radius:10px;
+}
+.jingtoucun{
+	position:absolute;
+	height:18%;
+	width:23%;
+	top:22%; 
+	left:2%; 
+	background-color:rgba(87, 140, 190, 1);
+}
+.zhongjianjia{
+	position:absolute;
+	height:18%;
+	width:23%;
+	top:22%; 
+	left:27%; 
+	background-color:rgba(227, 92, 89, 1);
+}
+.shijia{
+	position:absolute;
+	height:18%;
+	width:23%;
+	top:22%; 
+	left:52%; 
+	background-color:rgba(68, 180, 174, 1);
+}
+.yingkui{
+	position:absolute;
+	height:18%;
+	width:23%;
+	top:22%; 
+	left:77%; 
+	background-color:rgba(135, 117, 165, 1);
+}
