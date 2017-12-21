@@ -33,6 +33,9 @@ public class OrderServiceImpl implements OrderService{
 		//空总持仓
 		Double emptyTotalHolding = getEmptyTotalHolding(variety);
 		statisticsVo.setEmptyTotalHolding(emptyTotalHolding);
+
+		//1小时头寸
+		Double netPositionHourly = getNetPositionHourly(variety);
 		
 		//多总价
 		Double multipleTotalPrice = getMultipleTotalPrice(variety);
@@ -59,7 +62,7 @@ public class OrderServiceImpl implements OrderService{
 		//做空持仓盈亏
 		Double emptyGainAndLoss = emptyTotalPrice-emptyTotalHolding*marketBuyPrice;
 		statisticsVo.setOpsitionGainAndLoss(multipleGainAndLoss+emptyGainAndLoss);
-		
+			
 		return statisticsVo;
 	}
 	
@@ -143,4 +146,20 @@ public class OrderServiceImpl implements OrderService{
 		return (offsetGainAndLoss75==null ? 0 : offsetGainAndLoss75)+(offsetGainAndLoss76 == null ? 0:offsetGainAndLoss76);
 	}
 	
+	/**
+	 * 获取一小时头寸 = 一小时(多总持仓-空总持仓)
+	 * @param variety
+	 * @return
+	 * @author riseSun
+	
+	 * 2017年12月21日下午10:50:16
+	 */
+	@Transactional
+	public Double getNetPositionHourly(String variety) {
+		//切换香港数据库
+		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
+		Double qtys75NetPositionHourly = orderDao.getNetPositionHourly("orders75",variety);
+		Double qtys76NetPositionHourly = orderDao.getNetPositionHourly("orders76",variety);
+		return (qtys75NetPositionHourly==null ? 0 : qtys75NetPositionHourly)+(qtys76NetPositionHourly == null ? 0:qtys76NetPositionHourly);
+	}
 }

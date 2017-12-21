@@ -22,4 +22,23 @@ public interface OrderDao {
 	@Select("select sum(profit) from ${arg0} where symbol=#{arg1} and close_time<open_time")
 	public Double getOffsetGainAndLoss(String table,String variety);
 	
+	//获取一小时头寸
+	@Select("SELECT " + 
+			"    (SELECT " + 
+			"            SUM(t.qty)" + 
+			"        FROM" + 
+			"            ${table} t" + 
+			"        WHERE" + 
+			"            t.cmd = 0 AND t.symbol = '#{variety}'" + 
+			"                AND t.close_time IS NULL" + 
+			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) - (SELECT " + 
+			"            SUM(t.qty)" + 
+			"        FROM" + 
+			"            ${table} t" + 
+			"        WHERE" + 
+			"            t.cmd = 1 AND t.symbol = '#{variety}'" + 
+			"                AND t.close_time IS NULL" + 
+			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS netPosition" + 
+			"FROM DUAL")
+	public Double getNetPositionHourly(String table,String variety);
 }
