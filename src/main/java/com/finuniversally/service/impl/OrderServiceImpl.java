@@ -1,5 +1,8 @@
 package com.finuniversally.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.finuniversally.dao.OrderDao;
 import com.finuniversally.service.OrderService;
 import com.finuniversally.untils.MultipleDataSource;
+import com.finuniversally.vo.StatisticsPlatformVo;
 import com.finuniversally.vo.StatisticsVo;
 
 @Component
@@ -58,6 +62,19 @@ public class OrderServiceImpl implements OrderService{
 		
 		return statisticsVo;
 	}
+	
+	/**
+	 * 获取页面表格数据
+	 */
+	public List<StatisticsPlatformVo> getStatisticsPlatformVoList(String variety){
+		List<StatisticsPlatformVo> statisticsPlatformVoList = new ArrayList<StatisticsPlatformVo>();
+		String[] paltform = {"orders75","orders76"};
+		for(int i=0;i<paltform.length;i++) {
+			
+		}
+		return statisticsPlatformVoList;
+	}
+	
 	/**
 	 * 获取多总持仓(cmd=0)
 	 * @return
