@@ -59,7 +59,8 @@ public class OrderServiceImpl implements OrderService{
 		//切换香港数据库
 		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
 		Double qtys75 = orderDao.getHoldQtys("orders75",variety, 1L);
-		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 1L);;
+		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 1L);
+		System.out.println(11111);
 		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
 	}
 }
