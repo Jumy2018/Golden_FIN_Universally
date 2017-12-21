@@ -41,5 +41,4 @@ public interface OrderDao {
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS netPosition" + 
 			"FROM DUAL")
 	public Double getNetPositionHourly(String table,String variety);
-
 }

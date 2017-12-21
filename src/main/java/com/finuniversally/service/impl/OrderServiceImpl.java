@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService{
 		//做空持仓盈亏
 		Double emptyGainAndLoss = emptyTotalPrice-emptyTotalHolding*marketBuyPrice;
 		statisticsVo.setOpsitionGainAndLoss(multipleGainAndLoss+emptyGainAndLoss);
-		
+			
 		return statisticsVo;
 	}
 	/**
@@ -145,6 +145,4 @@ public class OrderServiceImpl implements OrderService{
 		Double qtys76NetPositionHourly = orderDao.getNetPositionHourly("orders76",variety);
 		return (qtys75NetPositionHourly==null ? 0 : qtys75NetPositionHourly)+(qtys76NetPositionHourly == null ? 0:qtys76NetPositionHourly);
 	}
-	
-	
 }
