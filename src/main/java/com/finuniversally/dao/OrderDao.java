@@ -6,10 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface OrderDao {
 	
-	@Select("select sum(qty) from orders75 t where t.cmd=0 and symbol=#{arg0}")
-	public Double getHoldQtys75(String variety,Long cmd);
-
-	@Select("select sum(qty) from orders76 t where t.cmd=0 and symbol=#{arg0}")
-	public Double getHoldQtys76(String variety,Long cmd);
-
+	@Select("select sum(qty) from ${arg0} t where symbol=#{arg1} and t.cmd=#{arg2,jdbcType=INTEGER} ")
+	public Double getHoldQtys(String table,String variety,Long cmd);
+	
 }
+

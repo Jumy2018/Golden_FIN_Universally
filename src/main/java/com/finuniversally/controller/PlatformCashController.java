@@ -35,8 +35,8 @@ public class PlatformCashController {
 	
 	@RequestMapping(value={"/index"},method={RequestMethod.GET})
 	public String index(Model model,@RequestParam String variety) throws Exception{
-//		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		StatisticsVo statisticsVo = orderService.getStaticsVo("XAUUSD.e");
+		//获取统计数据
+		StatisticsVo statisticsVo = orderService.getStaticsVo(variety);
 		model.addAttribute("statisticsVo", statisticsVo);
 		return "test";
 	}

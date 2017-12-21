@@ -19,13 +19,17 @@ public class OrderServiceImpl implements OrderService{
 	 */
 	@Override
 	public StatisticsVo getStaticsVo(String variety) {
+		//视图模型
 		StatisticsVo statisticsVo = new StatisticsVo();
-		Double multipleTotalHolding = getMultipleTotalHolding(variety);
+		
 		//多总持仓
+		Double multipleTotalHolding = getMultipleTotalHolding(variety);
 		statisticsVo.setMultipleTotalHolding(multipleTotalHolding);
-		Double emptyTotalHolding = getEmptyTotalHolding(variety);
+
 		//空总持仓
+		Double emptyTotalHolding = getEmptyTotalHolding(variety);
 		statisticsVo.setEmptyTotalHolding(emptyTotalHolding);
+		
 		return statisticsVo;
 	}
 	/**
@@ -37,10 +41,9 @@ public class OrderServiceImpl implements OrderService{
 	 */
 	@Transactional
 	private Double getMultipleTotalHolding(String variety) {
-		//切换香港数据库
 		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys75 = orderDao.getHoldQtys75("variety", 0L);
-		Double qtys76 = orderDao.getHoldQtys76("variety", 0L);
+		Double qtys75 = orderDao.getHoldQtys("orders75",variety, 0L);
+		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 0L);
 		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
 	}
 	/**
@@ -55,8 +58,8 @@ public class OrderServiceImpl implements OrderService{
 	private Double getEmptyTotalHolding(String variety) {
 		//切换香港数据库
 		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys75 = orderDao.getHoldQtys75("variety", 1L);
-		Double qtys76 = orderDao.getHoldQtys76("variety", 1L);
+		Double qtys75 = orderDao.getHoldQtys("orders75",variety, 1L);
+		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 1L);;
 		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
 	}
 }
