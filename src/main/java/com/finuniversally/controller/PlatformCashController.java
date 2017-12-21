@@ -29,7 +29,7 @@ public class PlatformCashController {
 	private static final Logger log = Logger.getLogger(PlatformCashController.class.getName());
 	
 	@Autowired
-	private VarietyService varietyService;
+	private VarietyService  varietyService;
 	@Autowired
 	private OrderService orderService;
 	
