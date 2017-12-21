@@ -14,7 +14,8 @@ public class StatisticsVo {
 	private double middlePrice;// 中间价
 	private double multipleTotalAveragePrice;// 多总均价
 	private double emptyTotalAveragePrice;// 空总均价
-	private double marketPrice;// 市价
+	private double marketBuyPrice;// 买入市价
+	private double marketSellPrice;// 卖出市价
 	private double multipleDetonatingPoint;// 多曝点
 	private double emptyDetonatingPoint;// 空爆点
 	private double totalProfitAndLoss;// 空户总盈亏
@@ -68,11 +69,17 @@ public class StatisticsVo {
 	public void setEmptyTotalAveragePrice(double emptyTotalAveragePrice) {
 		this.emptyTotalAveragePrice = emptyTotalAveragePrice;
 	}
-	public double getMarketPrice() {
-		return marketPrice;
+	public double getMarketBuyPrice() {
+		return marketBuyPrice;
 	}
-	public void setMarketPrice(double marketPrice) {
-		this.marketPrice = marketPrice;
+	public void setMarketBuyPrice(double marketBuyPrice) {
+		this.marketBuyPrice = marketBuyPrice;
+	}
+	public double getMarketSellPrice() {
+		return marketSellPrice;
+	}
+	public void setMarketSellPrice(double marketSellPrice) {
+		this.marketSellPrice = marketSellPrice;
 	}
 	/**
 	 * 多曝点 = 多总均价 - 13;
@@ -95,10 +102,7 @@ public class StatisticsVo {
 		return multipleTotalAveragePrice + 13.0;
 	}
 	public double getTotalProfitAndLoss() {
-		return totalProfitAndLoss;
-	}
-	public void setTotalProfitAndLoss(double totalProfitAndLoss) {
-		this.totalProfitAndLoss = totalProfitAndLoss;
+		return offsetGainAndLoss+opsitionGainAndLoss;
 	}
 	public double getOffsetGainAndLoss() {
 		return offsetGainAndLoss;
