@@ -6,7 +6,7 @@ package com.finuniversally.vo;
  * 平台头寸-统计数据区
  * 2017年11月29日下午10:51:03
  */
-public abstract class StatisticsVo {
+public class StatisticsVo {
 	private double netPosition; // 净头寸
 	private double netPositionHourly; //一小时净头寸
 	private double multipleTotalHolding; //多总持仓
@@ -23,7 +23,7 @@ public abstract class StatisticsVo {
 	
 	//setter,getter...
 	/**
-	 * 净头寸 = 多总持仓-空中持仓
+	 * 净头寸 = 多总持仓-空总持仓
 	 * @return
 	 * @author riseSun
 	 * 2017年12月13日下午10:08:15

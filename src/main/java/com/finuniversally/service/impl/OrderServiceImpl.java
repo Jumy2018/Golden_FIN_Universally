@@ -6,15 +6,57 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finuniversally.dao.OrderDao;
 import com.finuniversally.service.OrderService;
+import com.finuniversally.untils.MultipleDataSource;
+import com.finuniversally.vo.StatisticsVo;
 
 @Component
-@Transactional
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderDao orderDao;
 
+	/**
+	 * 获取统计数据
+	 */
 	@Override
-	public Double getHoldQtys(Long cmd) {
-		return orderDao.getHoldQtys(cmd);
+	public StatisticsVo getStaticsVo(String variety) {
+		StatisticsVo statisticsVo = new StatisticsVo();
+		Double multipleTotalHolding = getMultipleTotalHolding(variety);
+		//多总持仓
+		statisticsVo.setMultipleTotalHolding(multipleTotalHolding);
+		Double emptyTotalHolding = getEmptyTotalHolding(variety);
+		//空总持仓
+		statisticsVo.setEmptyTotalHolding(emptyTotalHolding);
+		return statisticsVo;
+	}
+	/**
+	 * 获取多总持仓(cmd=0)
+	 * @return
+	 * @author riseSun
+	
+	 * 2017年12月21日下午8:18:06
+	 */
+	@Transactional
+	private Double getMultipleTotalHolding(String variety) {
+		//切换香港数据库
+		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
+		Double qtys75 = orderDao.getHoldQtys75("variety", 0L);
+		Double qtys76 = orderDao.getHoldQtys76("variety", 0L);
+		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
+	}
+	/**
+	 * 获取空总持仓
+	 * @param variety
+	 * @return
+	 * @author riseSun
+	
+	 * 2017年12月21日下午8:29:24
+	 */
+	@Transactional
+	private Double getEmptyTotalHolding(String variety) {
+		//切换香港数据库
+		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
+		Double qtys75 = orderDao.getHoldQtys75("variety", 1L);
+		Double qtys76 = orderDao.getHoldQtys76("variety", 1L);
+		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
 	}
 }

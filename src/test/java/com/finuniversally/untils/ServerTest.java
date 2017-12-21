@@ -14,16 +14,14 @@ public class ServerTest{
 			+ "SD.e;50;1210.33;20171016162854;0;1;-2000;";
 	public void go(){
 		try{
-			ServerSocket ss = new ServerSocket(5000);
+			ServerSocket ss = new ServerSocket(12010);
 			//进入无限循环等待用户的链接
 			while(true){
 				//进行监听，接受客户端套接字的链接
 				Socket socket = ss.accept();
-				PrintStream ps  =  new PrintStream(socket.getOutputStream());
-				while(true){
+				PrintStream ps  = new PrintStream(socket.getOutputStream());
+				while(true)
 					ps.println(testData);
-				}
-				
 			}
 		}catch(Exception e){
 			e.printStackTrace();

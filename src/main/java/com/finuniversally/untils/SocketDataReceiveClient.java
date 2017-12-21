@@ -33,7 +33,10 @@ public class SocketDataReceiveClient  implements Runnable {
 			Matcher matcher = null ;
 			while((content = inputStream.read()) != -1) {
 				char ch = (char)content;
-				if(ch == ';') semicolons++;
+				System.out.println(ch);
+				if(ch == ';') {
+					++semicolons;
+				}
 				sBuilder.append(ch);
 				if(semicolons == MAX_SEMICOLONS) {
 					matcher = compile.matcher(sBuilder);
@@ -46,13 +49,13 @@ public class SocketDataReceiveClient  implements Runnable {
 								if(sBuilder.charAt(i) == ';') 
 									++semicolons;
 							}
-							continue;
-						}else {
-							//TODO sBuilder.toString()
+						}
+						if(start == 0 || semicolons == MAX_SEMICOLONS) {
 							System.out.println(sBuilder.toString());
 							semicolons = 0;
 							sBuilder.delete(0, sBuilder.length());
 						}
+						continue;
 					}
 				}
 			}
