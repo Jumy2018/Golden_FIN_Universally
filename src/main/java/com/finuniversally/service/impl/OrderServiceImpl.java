@@ -73,7 +73,6 @@ public class OrderServiceImpl implements OrderService{
 		List<StatisticsPlatformVo> statisticsPlatformVoList = new ArrayList<StatisticsPlatformVo>();
 		String[] paltform = {"orders75","orders76"};
 		for(int i=0;i<paltform.length;i++) {
-			
 		}
 		return statisticsPlatformVoList;
 	}
