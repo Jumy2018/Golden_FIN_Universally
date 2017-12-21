@@ -32,7 +32,7 @@
               			</select>
               			<button>查询</button>
 					</div>
-					<div class="jingtoucun">1</div>
+					<div class="jingtoucun">100</div>
 					<div class="zhongjianjia">2</div>
 					<div class="shijia">4</div>
 					<div class="yingkui">5</div>
