@@ -40,6 +40,21 @@ public class OrderServiceImpl implements OrderService{
 		statisticsVo.setEmptyTotalAveragePrice(emptyTotalPrice/emptyTotalHolding);
 		//中间价
 		statisticsVo.setMiddlePrice((multipleTotalPrice+emptyTotalPrice)/(multipleTotalHolding+emptyTotalHolding));
+		//卖出市价
+		Double marketSellPrice = orderDao.getMarketPrice("ask", variety);
+		statisticsVo.setMarketSellPrice(marketSellPrice);
+		//买入市价
+		Double marketBuyPrice = orderDao.getMarketPrice("bid", variety);
+		statisticsVo.setMarketBuyPrice(marketBuyPrice);
+		//平仓盈亏
+		Double offsetGainAndLoss = getOffsetGainAndLoss(variety);
+		statisticsVo.setOffsetGainAndLoss(offsetGainAndLoss);
+		
+		//做多持仓盈亏
+		Double multipleGainAndLoss = multipleTotalHolding*marketSellPrice-multipleTotalPrice;
+		//做空持仓盈亏
+		Double emptyGainAndLoss = emptyTotalPrice-emptyTotalHolding*marketBuyPrice;
+		statisticsVo.setOpsitionGainAndLoss(multipleGainAndLoss+emptyGainAndLoss);
 		
 		return statisticsVo;
 	}
@@ -96,6 +111,19 @@ public class OrderServiceImpl implements OrderService{
 		Double totalPrice75 = orderDao.getTotalPrice("orders75", variety, 1L);
 		Double totalPrice76 = orderDao.getTotalPrice("orders76", variety, 1L);
 		return (totalPrice75==null ? 0 : totalPrice75)+(totalPrice76 == null ? 0:totalPrice76);
+	}
+
+
+	/**
+	 * 平仓盈亏
+	 * 
+	 */
+	public Double getOffsetGainAndLoss(String variety) {
+		//切换香港的数据库
+		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
+		Double offsetGainAndLoss75 = orderDao.getOffsetGainAndLoss("orders75", variety);
+		Double offsetGainAndLoss76 = orderDao.getOffsetGainAndLoss("orders76", variety);
+		return (offsetGainAndLoss75==null ? 0 : offsetGainAndLoss75)+(offsetGainAndLoss76 == null ? 0:offsetGainAndLoss76);
 	}
 	
 }
