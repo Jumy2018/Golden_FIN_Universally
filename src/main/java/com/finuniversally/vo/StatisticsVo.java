@@ -18,7 +18,7 @@ public class StatisticsVo {
 	private double marketSellPrice;// 卖出市价
 	private double multipleDetonatingPoint;// 多曝点
 	private double emptyDetonatingPoint;// 空爆点
-	private double totalProfitAndLoss;// 空户总盈亏
+	private double totalProfitAndLoss;// 客户总盈亏
 	private double offsetGainAndLoss;//平仓盈亏
 	private double opsitionGainAndLoss;// 持仓盈亏
 	
@@ -81,6 +81,7 @@ public class StatisticsVo {
 	public void setMarketSellPrice(double marketSellPrice) {
 		this.marketSellPrice = marketSellPrice;
 	}
+
 	/**
 	 * 多曝点 = 多总均价 - 13;
 	 * @return
