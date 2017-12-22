@@ -9,16 +9,12 @@ package com.finuniversally.vo;
 public class StatisticsPlatformVo {
 	private String platformName;//平台名
 	private double netPosition; // 净头寸
-	private double netPositionHourly; //一小时净头寸
-	private double multipleTotalHolding; //多总持仓
-	private double emptyTotalHolding;// 空总持仓
+	private double netPositionHourly; //一小时净头
+	private double multipleTotalHolding; //多总持仓  买入手数
+	private double emptyTotalHolding;// 空总持仓  卖出手数
 	private double middlePrice;// 中间价
-	private double multipleTotalAveragePrice;// 多总均价
-	private double emptyTotalAveragePrice;// 空总均价
-	private double buyPrice;// 买入价
-	private double buyQty;//买入手数
-	private double sellPrice;// 卖出价
-	private double sellQty;//卖出手数
+	private double multipleTotalAveragePrice;// 多总均价  买入价
+	private double emptyTotalAveragePrice;// 空总均价  卖出价
 	private double multipleDetonatingPoint;// 多曝点
 	private double emptyDetonatingPoint;// 空爆点
 	private double totalProfitAndLoss;// 客户总盈亏
@@ -77,30 +73,6 @@ public class StatisticsPlatformVo {
 	}
 	public void setPlatformName(String platformName) {
 		this.platformName = platformName;
-	}
-	public double getBuyPrice() {
-		return buyPrice;
-	}
-	public void setBuyPrice(double buyPrice) {
-		this.buyPrice = buyPrice;
-	}
-	public double getBuyQty() {
-		return buyQty;
-	}
-	public void setBuyQty(double buyQty) {
-		this.buyQty = buyQty;
-	}
-	public double getSellPrice() {
-		return sellPrice;
-	}
-	public void setSellPrice(double sellPrice) {
-		this.sellPrice = sellPrice;
-	}
-	public double getSellQty() {
-		return sellQty;
-	}
-	public void setSellQty(double sellQty) {
-		this.sellQty = sellQty;
 	}
 
 	/**
