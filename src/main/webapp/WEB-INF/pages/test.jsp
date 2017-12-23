@@ -1,10 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
     	<title>客户管理页-平台头寸</title>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	    <meta name="apple-mobile-web-app-capable" content="yes"/>
 	    <link href="./css/style1.css" type="text/css" rel="stylesheet"/>
+	    <script type="text/javascript">
+	    	function searchVariety(){
+	    		var varietyCode = document.getElementById("variety");
+	    		window.location.herf="Golden_FIN_Universally/index?varietyName="+varietyCode;
+	    	}
+	    </script>
 	</head>
 	<body>
 		<!-- 整体大背景的div -->
@@ -20,24 +27,16 @@
 					<!-- 品种查询div -->
 					<div class="search1">
 						<p><span style="font-family:'微软雅黑';">品种：</span></p>
-						<select>
-	                		<option value="美黄金1712">美黄金1712</option>
-	                		<option value="美黄金1802">美黄金1802</option>
-	                		<option value="美原油1712">美原油1712</option>
-			                <option value="美原油1801">美原油1801</option>
-			                <option value="美原油1802">美原油1802</option>
-			                <option value="恒生指数1712">恒生指数1712</option>
-			                <option value="恒生指数1801">恒生指数1801</option>
-			                <option value="恒生指数1802">恒生指数1802</option>
+						<select id="variety">
               			</select>
-              			<button>查询</button>
+              			<button onclick="searchVariety();">查询</button>
 					</div>
 					<div class="jingtoucun">100</div>
 					<div class="zhongjianjia">2</div>
 					<div class="shijia">4</div>
 					<div class="yingkui">5</div>
 					<div class="platformTable">
-						<table height=100%  width=100%  border=1>
+						<table style="height: 100%;width: 100%;"   border=1>
 							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>

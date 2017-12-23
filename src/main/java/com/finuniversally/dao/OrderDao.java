@@ -11,7 +11,7 @@ public interface OrderDao {
 	public Double getHoldQtys(String table,String variety,Long cmd);
 	
 	//获取总价(持仓手数*开仓价格)
-	@Select("select sum(t.qty*t.) from ${arg0} t where t.symbol=#{arg1} and t.cmd=#{arg2,jdbcType=INTEGER} and t.close_time<t.open_time")
+	@Select("select sum(t.qty*t.open_price) from ${arg0} t where t.symbol=#{arg1} and t.cmd=#{arg2,jdbcType=INTEGER} and t.close_time<t.open_time")
 	public Double getTotalPrice(String table,String variety,Long cmd);
 	
 	//获取市价
@@ -27,18 +27,18 @@ public interface OrderDao {
 			"    (SELECT " + 
 			"            SUM(t.qty)" + 
 			"        FROM" + 
-			"            ${table} t" + 
+			"            ${arg0} t" + 
 			"        WHERE" + 
-			"            t.cmd = 0 AND t.symbol = #{variety}" + 
+			"            t.cmd = 0 AND t.symbol = #{arg1}" + 
 			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) - (SELECT " + 
 			"            SUM(t.qty)" + 
 			"        FROM" + 
-			"            ${table} t" + 
+			"            ${arg0} t" + 
 			"        WHERE" + 
-			"            t.cmd = 1 AND t.symbol = #{variety}" + 
+			"            t.cmd = 1 AND t.symbol = #{arg1}" + 
 			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS netPosition" + 
-			"FROM DUAL")
+			" FROM DUAL")
 	public Double getNetPositionHourly(String table,String variety);
 }

@@ -45,6 +45,7 @@
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<mysql-connector.version>8.0.8-dmr</mysql-connector.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
+		<jstl.version>1.2</jstl.version>
 	</properties>
 	<dependencies>
 		<!-- Spring MVC -->
@@ -110,6 +111,11 @@
     		<groupId>commons-dbcp</groupId>
     		<artifactId>commons-dbcp</artifactId>
     		<version>${commons-dbcp.version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>jstl</groupId>
+    		<artifactId>jstl</artifactId>
+    		<version>${jstl.version}</version>
 		</dependency>
 	</dependencies>
 </project>
