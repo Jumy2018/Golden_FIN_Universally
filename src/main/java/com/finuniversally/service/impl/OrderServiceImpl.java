@@ -90,9 +90,9 @@ public class OrderServiceImpl implements OrderService{
 			//空总价
 			Double emptyTotalPrice = getEmptyTotalPrice(paltform[i],variety);
 			//多总均价
-			statisticsPlatformVo.setMultipleTotalAveragePrice(multipleTotalPrice/multipleTotalHolding);
+			statisticsPlatformVo.setMultipleTotalAveragePrice(multipleTotalHolding==0?0:multipleTotalPrice/multipleTotalHolding);
 			//空总均价
-			statisticsPlatformVo.setEmptyTotalAveragePrice(emptyTotalPrice/emptyTotalHolding);
+			statisticsPlatformVo.setEmptyTotalAveragePrice(emptyTotalHolding==0?0:emptyTotalPrice/emptyTotalHolding);
 			//中间价
 			statisticsPlatformVo.setMiddlePrice((multipleTotalPrice+emptyTotalPrice)/(multipleTotalHolding+emptyTotalHolding));
 			//卖出市价

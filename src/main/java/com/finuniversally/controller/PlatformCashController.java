@@ -15,6 +15,7 @@ import com.finuniversally.model.Variety;
 import com.finuniversally.service.OrderService;
 import com.finuniversally.service.VarietyService;
 import com.finuniversally.untils.MultipleDataSource;
+import com.finuniversally.vo.StatisticsPlatformVo;
 import com.finuniversally.vo.StatisticsVo;
 
 /**
@@ -39,8 +40,10 @@ public class PlatformCashController {
 		List<Variety> varietyList = varietyService.getVarietys();
 		//获取统计数据
 		StatisticsVo statisticsVo = orderService.getStaticsVo(variety.getVarietyCode());
+		List<StatisticsPlatformVo> staList = orderService.getStatisticsPlatformVoList(variety.getVarietyCode());
 		model.addAttribute("statisticsVo", statisticsVo);
 		model.addAttribute("varietyList",varietyList);
+		model.addAttribute("staList",staList);
 		return "test";
 	}
 	
