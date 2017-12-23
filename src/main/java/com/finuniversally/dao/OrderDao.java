@@ -27,18 +27,18 @@ public interface OrderDao {
 			"    (SELECT " + 
 			"            SUM(t.qty)" + 
 			"        FROM" + 
-			"            ${table} t" + 
+			"            ${arg0} t" + 
 			"        WHERE" + 
-			"            t.cmd = 0 AND t.symbol = #{variety}" + 
+			"            t.cmd = 0 AND t.symbol = #{arg1}" + 
 			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) - (SELECT " + 
 			"            SUM(t.qty)" + 
 			"        FROM" + 
-			"            ${table} t" + 
+			"            ${arg0} t" + 
 			"        WHERE" + 
-			"            t.cmd = 1 AND t.symbol = #{variety}" + 
+			"            t.cmd = 1 AND t.symbol = #{arg1}" + 
 			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS netPosition" + 
-			"FROM DUAL")
+			" FROM DUAL")
 	public Double getNetPositionHourly(String table,String variety);
 }

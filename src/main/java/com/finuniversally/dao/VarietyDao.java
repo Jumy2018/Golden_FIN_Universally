@@ -12,6 +12,6 @@ public interface VarietyDao {
 	@Select("select id,variety_name as varietyName from GFU_VARIETY")
 	public List<Variety> getVarietys();
 
-	@Select("select t.variety_code as varietyCode from GFU_VARIETY t where t.name=#{variety_name}")
+	@Select("select t.variety_code as varietyCode from GFU_VARIETY t where t.variety_name=#{name}")
 	public Variety getVarietyByName(String name);
 }
