@@ -21,7 +21,16 @@ public class MultipleDataSource extends AbstractRoutingDataSource {
     public static void setDataSourceKey(String dataSource) {
         dataSourceKey.set(dataSource);
     }
-
+    /**
+     * 移除当前使用的数据源，切换到系统默认的数据源
+     * 
+     * @author riseSun
+    
+     * 2017年12月23日下午4:00:15
+     */
+    public static void removeDataSourceKey() {
+    	dataSourceKey.remove();
+    }
     @Override
     protected Object determineCurrentLookupKey() {
         return dataSourceKey.get();

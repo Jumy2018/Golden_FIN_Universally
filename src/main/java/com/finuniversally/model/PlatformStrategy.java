@@ -6,9 +6,10 @@ package com.finuniversally.model;
  * 2017年12月23日上午1:11:29
  */
 public class PlatformStrategy {
+
 	private Long id;
 	//平台
-	private Platform platform;
+	private CustomerPlatform platform;
 	//品种
 	private Variety variety;
 	//跟单账号
@@ -37,10 +38,10 @@ public class PlatformStrategy {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Platform getPlatform() {
+	public CustomerPlatform getPlatform() {
 		return platform;
 	}
-	public void setPlatform(Platform platform) {
+	public void setPlatform(CustomerPlatform platform) {
 		this.platform = platform;
 	}
 	public Variety getVariety() {
@@ -48,12 +49,6 @@ public class PlatformStrategy {
 	}
 	public void setVariety(Variety variety) {
 		this.variety = variety;
-	}
-	public Account getAccount() {
-		return account;
-	}
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 	public int getDirection() {
 		return direction;
@@ -96,5 +91,11 @@ public class PlatformStrategy {
 	}
 	public void setOrderLostLimit(Double orderLostLimit) {
 		this.orderLostLimit = orderLostLimit;
+	}
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }

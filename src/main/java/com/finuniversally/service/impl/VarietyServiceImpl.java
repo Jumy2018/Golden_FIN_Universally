@@ -21,6 +21,7 @@ public class VarietyServiceImpl implements VarietyService{
 	public List<Variety> getVarietys() {
 		MultipleDataSource.setDataSourceKey("dataSourceLocal");
 		return varietyDao.getVarietys();
+//		MultipleDataSource.removeDataSourceKey();
 	}
 
 	@Override
@@ -28,5 +29,6 @@ public class VarietyServiceImpl implements VarietyService{
 	public Variety getVarietyByName(String name) {
 		MultipleDataSource.setDataSourceKey("dataSourceLocal");
 		return varietyDao.getVarietyByName(name);
+//		MultipleDataSource.removeDataSourceKey();
 	}
 }
