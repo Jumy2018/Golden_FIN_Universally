@@ -12,18 +12,21 @@ import com.finuniversally.service.VarietyService;
 import com.finuniversally.untils.MultipleDataSource;
 
 @Component
-@Transactional
 public class VarietyServiceImpl implements VarietyService{
 	@Autowired
 	private VarietyDao varietyDao;
 	
 	@Override
+	@Transactional
 	public List<Variety> getVarietys() {
+		MultipleDataSource.setDataSourceKey("dataSourceLocal");
 		return varietyDao.getVarietys();
 	}
 
 	@Override
+	@Transactional
 	public Variety getVarietyByName(String name) {
+		MultipleDataSource.setDataSourceKey("dataSourceLocal");
 		return varietyDao.getVarietyByName(name);
 	}
 }
