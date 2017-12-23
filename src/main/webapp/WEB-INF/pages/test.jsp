@@ -9,7 +9,7 @@
 	    <script type="text/javascript">
 	    	function searchVariety(){
 	    		var varietyCode = document.getElementById("variety");
-	    		window.location.herf="Golden_FIN_Universally/index?varietyName="+varietyCode;
+	    		window.location.herf="index?varietyName="+varietyCode;
 	    	}
 	    </script>
 	</head>
@@ -28,13 +28,36 @@
 					<div class="search1">
 						<p><span style="font-family:'微软雅黑';">品种：</span></p>
 						<select id="variety">
+							<c:forEach items="${varietyList }" var="varietyList">
+								<option value="${varietyList.varietyName }">${varietyList.varietyName }</option>
+							</c:forEach>
               			</select>
               			<button onclick="searchVariety();">查询</button>
 					</div>
-					<div class="jingtoucun">100</div>
-					<div class="zhongjianjia">2</div>
-					<div class="shijia">4</div>
-					<div class="yingkui">5</div>
+					<div class="jingtoucun">
+						${statisticsVo.netPosition }(${statisticsVo.netPositionHourly })<br>
+						净头寸（一小时头寸）<br>
+						多总持仓：${statisticsVo.multipleTotalHolding }<br>
+						空总持仓：${statisticsVo.emptyTotalHolding }
+					</div>
+					<div class="zhongjianjia">
+						${statisticsVo.middlePrice }<br>
+						中间价<br>
+						多总均价：${statisticsVo.multipleTotalAveragePrice }<br>
+						空总均价：${statisticsVo.emptyTotalAveragePrice }
+					</div>
+					<div class="shijia">
+						${statisticsVo.marketBuyPrice }(${statisticsVo.marketSellPrice })<br>
+						市价<br>
+						多爆点：${statisticsVo.multipleDetonatingPoint }<br>
+						空爆点：${statisticsVo.emptyDetonatingPoint }
+					</div>
+					<div class="yingkui">
+						${statisticsVo.netPosition }(${statisticsVo.netPositionHourly })<br>
+						客户总盈亏<br>
+						平仓盈亏：${statisticsVo.multipleTotalHolding }<br>
+						持仓盈亏：${statisticsVo.emptyTotalHolding }
+					</div>
 					<div class="platformTable">
 						<table style="height: 100%;width: 100%;"   border=1>
 							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
