@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public interface OrderDao {
 	
 	//获取持仓手数
-	@Select("select sum(qty) from ${arg0} t where t.symbol=#{arg1} and t.cmd=#{arg2,jdbcType=INTEGER} and t.close_time<t.open_time")
+	@Select("select sum(qty) from ${arg0} t where t.symbol=#{arg1} and t.cmd=#{arg2,jdbcType=INTEGER} and t.close_time < t.open_time")
 	public Double getHoldQtys(String table,String variety,Long cmd);
 	
 	//获取总价(持仓手数*开仓价格)
@@ -29,15 +29,15 @@ public interface OrderDao {
 			"        FROM" + 
 			"            ${table} t" + 
 			"        WHERE" + 
-			"            t.cmd = 0 AND t.symbol = '#{variety}'" + 
-			"                AND t.close_time IS NULL" + 
+			"            t.cmd = 0 AND t.symbol = #{variety}" + 
+			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) - (SELECT " + 
 			"            SUM(t.qty)" + 
 			"        FROM" + 
 			"            ${table} t" + 
 			"        WHERE" + 
-			"            t.cmd = 1 AND t.symbol = '#{variety}'" + 
-			"                AND t.close_time IS NULL" + 
+			"            t.cmd = 1 AND t.symbol = #{variety}" + 
+			"                AND t.close_time < t.open_time" + 
 			"                AND t.open_time > DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS netPosition" + 
 			"FROM DUAL")
 	public Double getNetPositionHourly(String table,String variety);

@@ -9,6 +9,7 @@ package com.finuniversally.model;
 public class Variety {
 	private Long id;
 	private String varietyName;
+	private String varietyCode;
 	
 	
 	public Long getId() {
@@ -22,5 +23,11 @@ public class Variety {
 	}
 	public void setVarietyName(String varietyName) {
 		this.varietyName = varietyName;
+	}
+	public String getVarietyCode() {
+		return varietyCode;
+	}
+	public void setVarietyCode(String varietyCode) {
+		this.varietyCode = varietyCode;
 	}
 }

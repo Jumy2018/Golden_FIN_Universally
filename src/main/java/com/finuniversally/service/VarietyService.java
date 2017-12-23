@@ -11,4 +11,13 @@ import com.finuniversally.model.Variety;
  */
 public interface VarietyService {
 	public List<Variety> getVarietys();
+	/**
+	 * 根据名称获取品种
+	 * @return
+	 * @author riseSun
+	
+	 * 2017年12月22日下午8:48:47
+	 */
+	public Variety getVarietyByName(String varietyName);
+
 }
