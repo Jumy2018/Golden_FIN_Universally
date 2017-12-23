@@ -36,6 +36,14 @@
 					<div class="zhongjianjia">2</div>
 					<div class="shijia">4</div>
 					<div class="yingkui">5</div>
+					<div class="platformTable">
+						<table height=100%  width=100%  border=1>
+							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+						</table>
+					</div>
 				</div>
 			</div> 
 		</div>

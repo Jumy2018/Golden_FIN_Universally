@@ -1,5 +1,8 @@
 package com.finuniversally.service;
 
+import java.util.List;
+
+import com.finuniversally.vo.StatisticsPlatformVo;
 import com.finuniversally.vo.StatisticsVo;
 
 /**
@@ -18,4 +21,5 @@ public interface OrderService {
 	 * 2017年12月21日下午8:15:12
 	 */
 	public StatisticsVo getStaticsVo(String variety);
+	public List<StatisticsPlatformVo> getStatisticsPlatformVoList(String variety);
 }
