@@ -41,4 +41,10 @@ public class PlatformCashController {
 		model.addAttribute("statisticsVo", statisticsVo);
 		return "test";
 	}
+	
+	@RequestMapping(value={"/"},method={RequestMethod.GET})
+	public String test() {
+		System.out.println("test");
+		return "test";
+	}
 }

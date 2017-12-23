@@ -69,6 +69,7 @@ public class OrderServiceImpl implements OrderService{
 	/**
 	 * 获取页面表格数据
 	 */
+	@Override
 	public List<StatisticsPlatformVo> getStatisticsPlatformVoList(String variety){
 		List<StatisticsPlatformVo> statisticsPlatformVoList = new ArrayList<StatisticsPlatformVo>();
 		String[] paltform = {"orders75","orders76"};
