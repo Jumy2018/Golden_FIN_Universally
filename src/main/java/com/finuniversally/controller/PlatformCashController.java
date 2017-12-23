@@ -34,9 +34,10 @@ public class PlatformCashController {
 	private OrderService orderService;
 	
 	@RequestMapping(value={"/index"},method={RequestMethod.GET})
-	public String index(Model model,@RequestParam String variety) throws Exception{
+	public String index(Model model,@RequestParam String varietyName) throws Exception{
+		Variety variety = varietyService.getVarietyByName(varietyName);
 		//获取统计数据
-		StatisticsVo statisticsVo = orderService.getStaticsVo(variety);
+		StatisticsVo statisticsVo = orderService.getStaticsVo(variety.getVarietyCode());
 		model.addAttribute("statisticsVo", statisticsVo);
 		return "test";
 	}

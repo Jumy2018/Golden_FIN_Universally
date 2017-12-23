@@ -21,4 +21,9 @@ public class VarietyServiceImpl implements VarietyService{
 	public List<Variety> getVarietys() {
 		return varietyDao.getVarietys();
 	}
+
+	@Override
+	public Variety getVarietyByName(String name) {
+		return varietyDao.getVarietyByName(name);
+	}
 }
