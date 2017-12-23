@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 	<head>
     	<title>客户管理页-平台头寸</title>
@@ -60,10 +61,40 @@
 					</div>
 					<div class="platformTable">
 						<table style="height: 100%;width: 100%;"   border=1>
-							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+							<tr>
+								<td>平台名</td>
+								<td>买入手数</td>
+								<td>买入价</td>
+								<td>卖出手数</td>
+								<td>卖出价</td>
+								<td>净头寸</td>
+								<td>1小时头寸</td>
+								<td>中间价</td>
+								<td>多爆点</td>
+								<td>空爆点</td>
+								<td>持仓盈亏</td>
+								<td>平仓盈亏</td>
+								<td>总盈亏</td>
+								<td>操作</td>
+							</tr>
+							<c:forEach items="${staList }" var="staList">
+								<tr>
+									<td>${staList.platformName }</td>
+									<td>${staList.multipleTotalHolding }</td>
+									<td>${staList.multipleTotalAveragePrice }</td>
+									<td>${staList.emptyTotalHolding }</td>
+									<td>${staList.emptyTotalAveragePrice }</td>
+									<td>${staList.netPosition }</td>
+									<td>${staList.netPositionHourly }</td>
+									<td>${staList.middlePrice }</td>
+									<td>${staList.multipleDetonatingPoint }</td>
+									<td>${staList.emptyDetonatingPoint }</td>
+									<td><fmt:formatNumber pattern="#.0000" value="${staList.opsitionGainAndLoss }"/></td>
+									<td><fmt:formatNumber pattern="#.0000" value="${staList.offsetGainAndLoss }"/></td>
+									<td><fmt:formatNumber pattern="#.0000" value="${staList.totalProfitAndLoss }"/></td>
+									<td>跟单</td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
