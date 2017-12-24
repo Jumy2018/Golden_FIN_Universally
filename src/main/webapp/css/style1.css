@@ -162,3 +162,19 @@
 	cellspacing:0 ; 
 	border:none;
 }
+.accountTable{
+	position:absolute;
+	height:18%;
+	width:97%;
+	top:70%; 
+	left:3%; 
+	background-color:white;
+}
+.addAccountDivClass{
+	position:absolute;
+	height:18%;
+	width:97%;
+	top:65%; 
+	left:3%; 
+	background-color:white;
+}

@@ -9,15 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finuniversally.dao.OrderDao;
 import com.finuniversally.service.OrderService;
-import com.finuniversally.untils.MultipleDataSource;
+import com.finuniversally.untils.TransFormDataSource;
 import com.finuniversally.vo.StatisticsPlatformVo;
 import com.finuniversally.vo.StatisticsVo;
 
 @Component
 public class OrderServiceImpl implements OrderService{
 	@Autowired
-	private OrderDao orderDao;
-
+	private OrderServiceHongKong orderServiceHongKong;
+	
 	/**
 	 * 获取统计数据
 	 */
@@ -48,10 +48,10 @@ public class OrderServiceImpl implements OrderService{
 		//中间价
 		statisticsVo.setMiddlePrice((multipleTotalPrice+emptyTotalPrice)/(multipleTotalHolding+emptyTotalHolding));
 		//卖出市价
-		Double marketSellPrice = orderDao.getMarketPrice("ask", variety);
+		Double marketSellPrice = orderServiceHongKong.getMarketPrice("ask", variety);
 		statisticsVo.setMarketSellPrice(marketSellPrice);
 		//买入市价
-		Double marketBuyPrice = orderDao.getMarketPrice("bid", variety);
+		Double marketBuyPrice = orderServiceHongKong.getMarketPrice("bid", variety);
 		statisticsVo.setMarketBuyPrice(marketBuyPrice);
 		//平仓盈亏
 		Double offsetGainAndLoss = getOffsetGainAndLoss(variety);
@@ -96,9 +96,9 @@ public class OrderServiceImpl implements OrderService{
 			//中间价
 			statisticsPlatformVo.setMiddlePrice((multipleTotalPrice+emptyTotalPrice)/(multipleTotalHolding+emptyTotalHolding));
 			//卖出市价
-			Double marketSellPrice = orderDao.getMarketPrice("ask", variety);
+			Double marketSellPrice = orderServiceHongKong.getMarketPrice("ask", variety);
 			//买入市价
-			Double marketBuyPrice = orderDao.getMarketPrice("bid", variety);
+			Double marketBuyPrice = orderServiceHongKong.getMarketPrice("bid", variety);
 			//平仓盈亏
 			Double offsetGainAndLoss = getOffsetGainAndLoss(paltform[i],variety);
 			statisticsPlatformVo.setOffsetGainAndLoss(offsetGainAndLoss);
@@ -112,126 +112,46 @@ public class OrderServiceImpl implements OrderService{
 		return statisticsPlatformVoList;
 	}
 	
-	/**
-	 * 获取多总持仓(cmd=0)
-	 * @return
-	 * @author riseSun
 	
-	 * 2017年12月21日下午8:18:06
-	 */
-	@Transactional
-	private Double getMultipleTotalHolding(String variety) {
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys75 = orderDao.getHoldQtys("orders75",variety, 0L);
-		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 0L);
-		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
-	}
-	@Transactional
-	private Double getMultipleTotalHolding(String platform,String variety) {
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys = orderDao.getHoldQtys(platform,variety, 0L);
-		return (qtys==null ? 0 : qtys);
-	}
-	/**
-	 * 获取空总持仓
-	 * @param variety
-	 * @return
-	 * @author riseSun
 	
-	 * 2017年12月21日下午8:29:24
-	 */
-	@Transactional
-	private Double getEmptyTotalHolding(String variety) {
-		//切换香港数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys75 = orderDao.getHoldQtys("orders75",variety, 1L);
-		Double qtys76 = orderDao.getHoldQtys("orders76",variety, 1L);
-		return (qtys75==null ? 0 : qtys75)+(qtys76 == null ? 0:qtys76);
-	}
-	@Transactional
-	private Double getEmptyTotalHolding(String platform,String variety) {
-		//切换香港数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys = orderDao.getHoldQtys(platform,variety, 1L);
-		return (qtys==null ? 0 : qtys);
-	}
-	/**
-	 * 获取多总价
-	 */
-	@Transactional
-	private Double getMultipleTotalPrice(String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double totalPrice75 = orderDao.getTotalPrice("orders75", variety, 0L);
-		Double totalPrice76 = orderDao.getTotalPrice("orders76", variety, 0L);
-		return (totalPrice75==null ? 0 : totalPrice75)+(totalPrice76 == null ? 0:totalPrice76);
-	}
-	@Transactional
-	private Double getMultipleTotalPrice(String platform,String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double totalPrice = orderDao.getTotalPrice(platform, variety, 0L);
-		return (totalPrice==null ? 0 : totalPrice);
-	}
-	/**
-	 * 获得空总价
-	 */
-	@Transactional
-	private Double getEmptyTotalPrice(String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double totalPrice75 = orderDao.getTotalPrice("orders75", variety, 1L);
-		Double totalPrice76 = orderDao.getTotalPrice("orders76", variety, 1L);
-		return (totalPrice75==null ? 0 : totalPrice75)+(totalPrice76 == null ? 0:totalPrice76);
-	}
-	@Transactional
-	private Double getEmptyTotalPrice(String platform,String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double totalPrice = orderDao.getTotalPrice(platform, variety, 1L);
-		return (totalPrice==null ? 0 : totalPrice);
-	}
 	
-	/**
-	 * 平仓盈亏
-	 * 
-	 */
-	@Transactional
+	
+	
+	
+	public Double getMultipleTotalHolding(String variety) {
+		return orderServiceHongKong.getMultipleTotalHolding(variety);
+	}
+	public Double getMultipleTotalHolding(String table,String variety) {
+		return orderServiceHongKong.getMultipleTotalHolding(table, variety);
+	}
+	public Double getEmptyTotalHolding(String variety) {
+		return orderServiceHongKong.getEmptyTotalHolding(variety);
+	}
+	public Double getEmptyTotalHolding(String table,String variety) {
+		return orderServiceHongKong.getEmptyTotalHolding(table, variety);
+	}
+	public Double getMultipleTotalPrice(String variety) {
+		return orderServiceHongKong.getMultipleTotalPrice(variety);
+	}
+	public Double getMultipleTotalPrice(String platform,String variety) {
+		return orderServiceHongKong.getMultipleTotalPrice(platform, variety);
+	}
+	public Double getEmptyTotalPrice(String variety) {
+		return orderServiceHongKong.getEmptyTotalPrice(variety);
+	}
+	public Double getEmptyTotalPrice(String platform,String variety) {
+		return orderServiceHongKong.getEmptyTotalPrice(platform, variety);
+	}
 	public Double getOffsetGainAndLoss(String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double offsetGainAndLoss75 = orderDao.getOffsetGainAndLoss("orders75", variety);
-		Double offsetGainAndLoss76 = orderDao.getOffsetGainAndLoss("orders76", variety);
-		return (offsetGainAndLoss75==null ? 0 : offsetGainAndLoss75)+(offsetGainAndLoss76 == null ? 0:offsetGainAndLoss76);
+		return orderServiceHongKong.getOffsetGainAndLoss(variety);
 	}
-	@Transactional
 	public Double getOffsetGainAndLoss(String platform,String variety) {
-		//切换香港的数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double offsetGainAndLoss = orderDao.getOffsetGainAndLoss(platform, variety);
-		return (offsetGainAndLoss==null ? 0 : offsetGainAndLoss);
+		return orderServiceHongKong.getOffsetGainAndLoss(platform, variety);
 	}
-	/**
-	 * 获取一小时头寸 = 一小时(多总持仓-空总持仓)
-	 * @param variety
-	 * @return
-	 * @author riseSun
-	
-	 * 2017年12月21日下午10:50:16
-	 */
-	@Transactional
 	public Double getNetPositionHourly(String variety) {
-		//切换香港数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtys75NetPositionHourly = orderDao.getNetPositionHourly("orders75",variety);
-		Double qtys76NetPositionHourly = orderDao.getNetPositionHourly("orders76",variety);
-		return (qtys75NetPositionHourly==null ? 0 : qtys75NetPositionHourly)+(qtys76NetPositionHourly == null ? 0:qtys76NetPositionHourly);
+		return orderServiceHongKong.getNetPositionHourly(variety);
 	}
-	@Transactional
 	public Double getNetPositionHourly(String platform,String variety) {
-		//切换香港数据库
-		MultipleDataSource.setDataSourceKey("dataSourceHongKong");
-		Double qtysNetPositionHourly = orderDao.getNetPositionHourly(platform,variety);
-		return (qtysNetPositionHourly==null ? 0 : qtysNetPositionHourly);
+		return orderServiceHongKong.getNetPositionHourly(variety);
 	}
 }
