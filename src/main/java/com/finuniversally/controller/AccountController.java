@@ -22,8 +22,8 @@ public class AccountController {
 	AccountService accountService;
 
 	@RequestMapping(value={"/account/add"},method={RequestMethod.POST})
-	public String add(@RequestParam Account account) {
-		Account acc = accountService.add(account);
-		return "";
+	public String add(Account account) {
+		accountService.add(account);
+		return "redirect:/index";
 	}
 }

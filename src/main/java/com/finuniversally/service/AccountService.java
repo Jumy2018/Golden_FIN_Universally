@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.finuniversally.controller.AccountVo;
 import com.finuniversally.model.Account;
 import com.finuniversally.model.User;
 
@@ -23,7 +24,7 @@ public interface AccountService {
 	
 	 * 2017年12月23日下午3:48:44
 	 */
-	public Account add(Account account);
+	public void add(Account account);
 	
 	/**
 	 * 获取所有账户
@@ -32,5 +33,5 @@ public interface AccountService {
 	
 	 * 2017年12月23日下午5:52:21
 	 */
-	public List<Account> getAllAccounts();
+	public List<AccountVo> getAllAccounts();
 }

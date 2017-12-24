@@ -46,7 +46,4 @@
 	<listener>
 		<listener-class>com.finuniversally.listeners.InitSocketDataReceiveListener</listener-class>
 	</listener>
-<!-- 	<listener>
-		<listener-class>com.finuniversally.untils.TempClient</listener-class>
-	</listener> -->
 </web-app>
