@@ -61,14 +61,6 @@
 		<!-- 整体大背景的div -->
 		<div id="page">
 			<%@ include file="/common/header.jsp"%>
-			<div class="div3">
-			</div>
-			<!-- 把页面分成上下两个部分 -->
-			<div class="div1">
-				<p>
-					<span style="font-family: '微软雅黑'; color: white;">金政通智能跟单平台</span>
-				</p>
-			</div>
 			<div class="div2">
 				<!-- 把div2分成左右两个部分 -->
 				<div class="div3"></div>
@@ -97,9 +89,6 @@
 							多总持仓：${statisticsVo.multipleTotalHolding }<br>
 							空总持仓：${statisticsVo.emptyTotalHolding }
 						</div>
-						${statisticsVo.netPosition }(${statisticsVo.netPositionHourly })<br>
-						净头寸（一小时头寸）<br> 多总持仓：${statisticsVo.multipleTotalHolding }<br>
-						空总持仓：${statisticsVo.emptyTotalHolding }
 					</div>
 					<div class="zhongjianjia">
 						<div class="font1">
@@ -112,9 +101,6 @@
 							多总均价：${statisticsVo.multipleTotalAveragePrice }<br>
 							空总均价：${statisticsVo.emptyTotalAveragePrice }
 						</div>
-						${statisticsVo.middlePrice }<br> 中间价<br>
-						多总均价：${statisticsVo.multipleTotalAveragePrice }<br>
-						空总均价：${statisticsVo.emptyTotalAveragePrice }
 					</div>
 					<div class="shijia">
 						<div class="font1">
@@ -126,9 +112,6 @@
 							多爆点：${statisticsVo.multipleDetonatingPoint }<br>
 							空爆点：${statisticsVo.emptyDetonatingPoint }
 						</div>
-						${statisticsVo.marketBuyPrice }(${statisticsVo.marketSellPrice })<br>
-						市价<br> 多爆点：${statisticsVo.multipleDetonatingPoint }<br>
-						空爆点：${statisticsVo.emptyDetonatingPoint }
 					</div>
 					<div class="yingkui">
 						<div class="font1">
@@ -139,9 +122,6 @@
 							平仓盈亏：<fmt:formatNumber pattern="#.####" value="${statisticsVo.offsetGainAndLoss }"/><br>
 							持仓盈亏：<fmt:formatNumber pattern="#.####" value="${statisticsVo.opsitionGainAndLoss }"/>
 						</div>
-						${statisticsVo.netPosition }(${statisticsVo.netPositionHourly })<br>
-						客户总盈亏<br> 平仓盈亏：${statisticsVo.multipleTotalHolding }<br>
-						持仓盈亏：${statisticsVo.emptyTotalHolding }
 					</div>
 						<table class="platformTable" >
 							<tr style="background-color: #c0c0c0" align="center">
@@ -223,6 +203,7 @@
 								</tr>	
 							</c:forEach>
 						</table>
+					</div>
 					</div>
 	</body>
 </html>
