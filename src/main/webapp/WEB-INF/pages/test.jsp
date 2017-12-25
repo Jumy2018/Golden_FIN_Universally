@@ -171,7 +171,7 @@
 			<form action="account/add" method="post" id="editForm">
 				<ul class="editInfos">
 					<li>
-						<label>
+						<label><br><br>
 							<font color="#ff0000">* </font>
 							平台：<select id="platform" name="platform.id" class="ipt" style="widows: 200px">
 									<c:forEach items="${tradePlatformList}" var="platform">
