@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.finuniversally.mapper.AccountMapper">
+ 	<!-- 结果集 -->
+ 	<resultMap id="accountsResultMap" type="com.finuniversally.model.Account">
+ 		<id property="id" column="ID"/>
+ 		<result property="username" column="USER_NAME"/>
+ 		<result property="password" column="PASS_WORD"/>
+ 		<association property="platform" column="TRADE_PLATFORM"
+ 			javaType="com.finuniversally.model.TradePlatform"
+			select="getTradePlatformById"/>
+ 	</resultMap>
+ 	
+ 	<!-- 插入Account -->
+ 	<insert id="saveAccount" parameterType="account" useGeneratedKeys="true">
+ 		INSERT INTO GFU_ACCOUNT (USER_NAME,PASS_WORD,TRADE_PLATFORM) 
+ 		VALUES(#{username},#{password},#{platform.id})
+ 	</insert>
+ 	
+ 	<!-- 查询所有Account -->
+ 	<select id="getAccounts" resultMap="accountsResultMap">
+ 		SELECT * FROM GFU_ACCOUNT
+ 	</select>
+ 	
+ 	<!-- 根据ID查询 -->
+	<select id="getAccountById" parameterType="long" resultMap="accountsResultMap">
+		SELECT * FROM GFU_ACCOUNT WHERE ID=#{id}
+	</select>
+	
+ 	<!-- 更新Account -->
+ 	<update id="updateAccount" parameterType="account">
+ 		UPDATE GFU_ACCOUNT
+ 			SET USER_NAME=#{username},PASS_WORD=#{password},TRADE_PLATFORM=#{platform.id}
+ 		WHERE ID=#{id}
+ 	</update>
+ 	
+ 	<!-- 删除Account -->
+ 	<delete id="delAccount" parameterType="account">
+ 		DELETE FROM GFU_ACCOUNT WHERE ID=#{id}	
+ 	</delete>
+ </mapper>
+	
