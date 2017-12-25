@@ -7,19 +7,46 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	    <meta name="apple-mobile-web-app-capable" content="yes"/>
 	    <link href="./css/style1.css" type="text/css" rel="stylesheet"/>
+	    <script src="./scripts/jquery-1.7.1.min.js"></script>
+    	<script src="./scripts/jquery-ui-1.8.10.custom.min.js"></script>
 	    <script type="text/javascript">
 	    	function searchVariety(){
 	    		var varietyCode = document.getElementById("variety");
 	    		window.location.herf="index?varietyName="+varietyCode;
 	    	}
+	    	$(function() {
+	    		var Accordion = function(el, multiple) {
+	    			this.el = el || {};
+	    			this.multiple = multiple || false;
+
+	    			// Variables privadas
+	    			var links = this.el.find('.link');
+	    			// Evento
+	    			links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	    		}
+
+	    		Accordion.prototype.dropdown = function(e) {
+	    			var $el = e.data.el;
+	    				$this = $(this),
+	    				$next = $this.next();
+
+	    			$next.slideToggle();
+	    			$this.parent().toggleClass('open');
+
+	    			if (!e.data.multiple) {
+	    				$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+	    			};
+	    		}	
+
+	    		var accordion = new Accordion($('#accordion'), false);
+	    	});
 	    </script>
 	</head>
 	<body>
 		<!-- 整体大背景的div -->
 		<div id="page">
 			<%@ include file="/common/header.jsp"%>
-			<div class="div3">
-			</div>
+			<%@ include file="/common/left.jsp"%>
 			<div class="div4">
 				<div class="lishipcyk">
 					<div class="font1">
