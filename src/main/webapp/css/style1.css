@@ -172,9 +172,20 @@
 }
 .addAccountDivClass{
 	position:absolute;
-	height:18%;
+	height:30px;
 	width:97%;
 	top:65%; 
-	left:3%; 
+	left:2%; 
+	margin-right: 300px;
+}
+.accountTable{
+	position:absolute;
+	width:97%;
+	top:70%; 
+	left:2%; 
 	background-color:white;
+	font-family:'微软雅黑';
+	cellspacing:0; 	
+	height: auto;
+	line-height: 33px;
 }
