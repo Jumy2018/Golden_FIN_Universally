@@ -7,62 +7,48 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href="./css/style1.css" type="text/css" rel="stylesheet" />
-	<style type="text/css">
-    #login
-    {
-        display:none;
-        border:1em solid #3366FF;
-        height:30%;
-        width:50%;
-        position:absolute;/*让节点脱离文档流,我的理解就是,从页面上浮出来,不再按照文档其它内容布局*/
-        top:24%;/*节点脱离了文档流,如果设置位置需要用top和left,right,bottom定位*/
-        left:24%;
-        z-index:2;/*个人理解为层级关系,由于这个节点要在顶部显示,所以这个值比其余节点的都大*/
-        background: white;
-    }
-    #over
-    {
-        width: 100%;
-        height: 100%;
-        opacity:0.8;/*设置背景色透明度,1为完全不透明,IE需要使用filter:alpha(opacity=80);*/
-        filter:alpha(opacity=80);
-        display: none;
-        position:absolute;
-        top:0;
-        left:0;
-        z-index:1;
-        background: silver;
-    }
-	</style>
+	<link rel="stylesheet" href="./css/common.css"/>
+	<script type="text/javascript" src="./scripts/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript">
 		function searchVariety() {
 			var varietyCode = document.getElementById("variety");
 			window.location.herf = "index?varietyName=" + varietyCode;
 		}
-		
-		    function show()
-		    {
-				var login = document.getElementById('login');
-				var over = document.getElementById('over');
-		        login.style.display = "block";
-		        over.style.display = "block";
-		    }
-		    function hide()
-		    {
-				var login = document.getElementById('login');
-				var over = document.getElementById('over');
-	
-		        login.style.display = "none";
-		        over.style.display = "none";
-		    }
+		//以下的函数为添加账号的弹出框需要
+		var w,h,className;
+		function getSrceenWH(){
+			w = $(window).width();
+			h = $(window).height();
+			$('#dialogBg').width(w).height(h);
+		}
+		window.onresize = function(){  
+			getSrceenWH();
+		}  
+		$(window).resize();  
+		$(function(){
+			getSrceenWH();
+			
+			//显示弹框
+			$("#addAccount").click(function(){
+				className = $(this).attr('class');
+				$('#dialogBg').fadeIn(300);
+				$('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
+			});
+			
+			//关闭弹窗
+			$('.cancelBtn').click(function(){
+				$('#dialogBg').fadeOut(300,function(){
+					$('#dialog').addClass('bounceOutUp').fadeOut();
+				});
+			});
+		});
+		//END
 	</script>
 	</head>
 	<body>
 		<!-- 整体大背景的div -->
 		<div id="page">
 			<%@ include file="/common/header.jsp"%>
-			<div class="div2">
-				<!-- 把div2分成左右两个部分 -->
 				<div class="div3"></div>
 				<div class="div4">
 					<!-- 品种查询div -->
@@ -158,52 +144,55 @@
 								</tr>
 							</c:forEach>
 						</table>
+						<div class="addAccountDivClass" align="right">
+							<input type="button" value="添加交易账号" style="width: 200px;height: 30px" id="addAccount"/>
+						</div>
+						<table class="accountTable">
+							<tr style="background-color: #c0c0c0" align="center">
+								<td><strong>平台名</strong></td>
+								<td><strong>账户名</strong></td>
+								<td><strong>操作</strong></td>
+							</tr>
+							<c:forEach items="${allAccounts }" var="account">
+								<tr align="center">
+									<td>${account.platformName}</td>
+									<td>${account.userName}</td>
+									<td><a>修改</a> <a>删除</a></td>
+								</tr>
+							</c:forEach>
+						</table>
 					</div>
-					</div>
-					<div class="addAccountDivClass" align="right">
-						<input type="button" value="添加交易账号" onclick="javascript:show()" />
-					</div>
-					<div class="accountTable">
-					  <div id="login">
-					  </div>
-					  <div id="over">
-					  	<form action="account/add" method="post">
-						  	<table>
-						  		平台:
-						  		<select id="platform" name="platform.id">
+				</div>
+			</div>
+			
+			
+		<div id="dialogBg"></div>
+		<div id="dialog" class="animated">
+			<div class="dialogTop">
+				<div align="left"><span>账号管理</span></div>
+			</div>
+			<form action="account/add" method="post" id="editForm">
+				<ul class="editInfos">
+					<li>
+						<label>
+							<font color="#ff0000">* </font>
+							平台：<select id="platform" name="platform.id" class="ipt" style="widows: 200px">
 									<c:forEach items="${tradePlatformList}" var="platform">
 										<option value="${platform.id}">${platform.name}</option>
 									</c:forEach>
 								</select>
-						  		<br/>
-						  		账号:<input type="text" name="username"/><br/>
-						  		密码:<input type="text" name="password"/><br/>
-						  		<input type="submit" value="保存"/>
-						  		<input type="button" value="取消"/>
-							</table>
-						</form>
-					  </div>
-						<table style="height: 100%; width: 100%;" border=1>
-							<tr>
-								<td>平台</td>
-								<td>帐户名</td>
-								<td>操作</td>
-							</tr>
-							<c:forEach items="${allAccounts }" var="account">
-								<tr>
-									<td>
-										${account.platformName}
-									</td>
-									<td>
-										${account.userName}
-									</td>
-									<td>
-										修改 删除
-									</td>
-								</tr>	
-							</c:forEach>
-						</table>
-					</div>
-					</div>
+						</label>
+					</li>
+					<li><label><font color="#ff0000">* </font>账户：<input type="text" name="username" required value="" class="ipt" /></label></li>
+					<li><label><font color="#ff0000">* </font>密码：<input type="text" name="password" required value="" class="ipt" /></label></li>
+					<li>
+						<input type="submit" value="保存" class="submitBtn" />
+						<input type="submit" value="取消" class="cancelBtn" />
+					</li>
+				</ul>
+			</form>
+		</div>
+			
+			
 	</body>
 </html>
