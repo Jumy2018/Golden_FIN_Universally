@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finuniversally.model.Account;
+import com.finuniversally.model.AccountVo;
 import com.finuniversally.model.TradePlatform;
 import com.finuniversally.model.Variety;
 import com.finuniversally.service.AccountService;
