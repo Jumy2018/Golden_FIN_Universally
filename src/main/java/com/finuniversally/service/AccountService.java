@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.finuniversally.controller.AccountVo;
 import com.finuniversally.model.Account;
+import com.finuniversally.model.AccountVo;
 import com.finuniversally.model.User;
 
 /**
@@ -34,4 +34,12 @@ public interface AccountService {
 	 * 2017年12月23日下午5:52:21
 	 */
 	public List<AccountVo> getAllAccounts();
+	/**
+	 * 删除交易账号
+	 * @param account
+	 * @author riseSun
+	
+	 * 2017年12月26日上午1:55:11
+	 */
+	public void del(Account account);
 }

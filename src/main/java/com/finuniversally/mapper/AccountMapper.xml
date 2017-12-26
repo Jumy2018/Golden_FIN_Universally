@@ -9,17 +9,17 @@
  		<result property="password" column="PASS_WORD"/>
  		<association property="platform" column="TRADE_PLATFORM"
  			javaType="com.finuniversally.model.TradePlatform"
-			select="getTradePlatformById"/>
+			select="com.finuniversally.mapper.TradePlatformMapper.getTradePlatformById" />
  	</resultMap>
  	
  	<!-- 插入Account -->
- 	<insert id="saveAccount" parameterType="account" useGeneratedKeys="true">
+ 	<insert id="saveAccount" parameterType="com.finuniversally.model.Account" useGeneratedKeys="true">
  		INSERT INTO GFU_ACCOUNT (USER_NAME,PASS_WORD,TRADE_PLATFORM) 
  		VALUES(#{username},#{password},#{platform.id})
  	</insert>
  	
  	<!-- 查询所有Account -->
- 	<select id="getAccounts" resultMap="accountsResultMap">
+ 	<select id="getAccounts" resultMap="accountsResultMap" >
  		SELECT * FROM GFU_ACCOUNT
  	</select>
  	
@@ -29,14 +29,14 @@
 	</select>
 	
  	<!-- 更新Account -->
- 	<update id="updateAccount" parameterType="account">
+ 	<update id="updateAccount" parameterType="com.finuniversally.model.Account">
  		UPDATE GFU_ACCOUNT
  			SET USER_NAME=#{username},PASS_WORD=#{password},TRADE_PLATFORM=#{platform.id}
  		WHERE ID=#{id}
  	</update>
  	
  	<!-- 删除Account -->
- 	<delete id="delAccount" parameterType="account">
+ 	<delete id="delAccount" parameterType="com.finuniversally.model.Account">
  		DELETE FROM GFU_ACCOUNT WHERE ID=#{id}	
  	</delete>
  </mapper>

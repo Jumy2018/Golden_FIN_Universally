@@ -27,22 +27,54 @@
 		$(window).resize();  
 		$(function(){
 			getSrceenWH();
-			
-			//显示弹框
-			$("#addAccount").click(function(){
-				className = $(this).attr('class');
-				$('#dialogBg').fadeIn(300);
-				$('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
-			});
-			
 			//关闭弹窗
-			$('.cancelBtn').click(function(){
+/* 			$('.cancelBtn').click(function(){
 				$('#dialogBg').fadeOut(300,function(){
 					$('#dialog').addClass('bounceOutUp').fadeOut();
+					$('#platformStrategyDiv').addClass('bounceOutUp').fadeOut();
 				});
-			});
+			}); */
 		});
-		//END
+		//编辑交易账户
+		function editAccount(obj){
+			$('#dialogBg').fadeIn(300);
+			$('#dialog').fadeIn();
+			var platformId = $(obj).closest("tr").find("#platformIdVal").val();
+			var username = $(obj).closest("tr").find("#usernameVal").val();
+			var password = $(obj).closest("tr").find("#passwordVal").val();
+			var id = $(obj).closest("tr").find("#accountIdVal").val();
+			
+			var usernameObj = $('#dialog').find("input[name='username']");
+			$(usernameObj[0]).val(username);
+
+			var passwordObj = $('#dialog').find("input[name='password']");
+			$(passwordObj[0]).val(password);
+
+			var platformIdObj = $('#dialog').find("select[name='platform.id']");
+			$(platformIdObj[0]).val(platformId);
+
+			var idObj = $('#dialog').find("input[name='id']");
+			$(idObj[0]).val(id);
+		}
+		function closeEditAccount(){
+			$('#dialogBg').fadeOut(300,function(){
+				$('#dialog').addClass('bounceOutUp').fadeOut();
+			});
+		}
+		//删除交易账号(还没做确认删除弹层)
+		function delAccount(accId){
+			window.location="account/del?accountId="+accId;
+		}
+		//编辑平台跟单策略
+		function editPlatformStrategy(){
+			$('#dialogBg').fadeIn(300);
+			$('#platformStrategyDiv').fadeIn();
+		}
+		function closeEditPlatformStrategy(){
+			$('#dialogBg').fadeOut(300,function(){
+				$('#platformStrategyDiv').addClass('bounceOutUp').fadeOut();
+			});
+		}
 	</script>
 	</head>
 	<body>
@@ -140,12 +172,14 @@
 							<td><fmt:formatNumber pattern="#.####" value="${staList.opsitionGainAndLoss }"/></td>
 							<td><fmt:formatNumber pattern="#.####" value="${staList.offsetGainAndLoss }"/></td>
 							<td><fmt:formatNumber pattern="#.####" value="${staList.totalProfitAndLoss }"/></td>
-							<td>跟单</td>
+							<td>
+								<span style="cursor: pointer;color: blue;" onclick="editPlatformStrategy('${staList.platformName}')">跟单</span>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div class="addAccountDivClass" align="right">
-					<input type="button" value="添加交易账号" style="width: 200px;height: 30px" id="addAccount"/>
+					<input type="button" value="添加交易账号" style="width: 200px;height: 30px" onclick="editAccount()"/>
 				</div>
 				<table class="accountTable">
 					<tr style="background-color: #c0c0c0" align="center">
@@ -153,11 +187,17 @@
 						<td><strong>账户名</strong></td>
 						<td><strong>操作</strong></td>
 					</tr>
-					<c:forEach items="${allAccounts }" var="account">
+					<c:forEach items="${allAccounts}" var="account">
 						<tr align="center">
 							<td>${account.platformName}</td>
-							<td>${account.userName}</td>
-							<td><a>修改</a> <a>删除</a></td>
+							<td>${account.username}</td>
+							<td hidden="hidden">
+								<input hidden="hidden" value="${account.id}" id="accountIdVal"/>
+								<input hidden="hidden" value="${account.platformId}" id="platformIdVal"/>
+								<input hidden="hidden" value="${account.username}" id="usernameVal"/>
+								<input hidden="hidden" value="${account.password}" id="passwordVal"/>
+							</td>
+							<td><span style="cursor: pointer;color: blue;" onclick="editAccount(this)">修改</span> <span style="cursor: pointer;color: blue;" onclick="delAccount('${account.id}')">删除</span></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -170,6 +210,9 @@
 			</div>
 			<form action="account/add" method="post" id="editForm">
 				<ul class="editInfos">
+					<li hidden="hidden">
+						<input hidden="hidden" name="id"/>
+					</li>
 					<li>
 						<label><br><br>
 							<font color="#ff0000">* </font>
@@ -184,10 +227,42 @@
 					<li><label><font color="#ff0000">* </font>密码：<input type="text" name="password" required value="" class="ipt" /></label></li>
 					<li>
 						<input type="submit" value="保存" class="submitBtn" />
-						<input type="submit" value="取消" class="cancelBtn" />
+						<input type="button" value="取消" onclick="closeEditAccount()" class="cancelBtn" />
 					</li>
 				</ul>
 			</form>
+		</div>
+
+		<!-- 跟单策略弹层 -->
+		<div id="platformStrategyDiv" class="animated">
+			<div class="dialogTop">
+				<div align="left"><span>平台跟单</span></div>
+			</div>
+		<form action="account/add" method="post" id="editForm">
+				<ul class="editInfos">
+					<li hidden="hidden">
+						<input hidden="hidden" name="id"/>
+					</li>
+					<li>
+						<label><br><br>
+							<font color="#ff0000">* </font>
+							平台：MT4
+						</label>
+					</li>
+					<li>
+						<label>
+							是否跟单: 
+								<input type="radio" name="strategyDirection" value=""/> 正向跟单
+								<input type="radio" name="strategyDirection" value=""/> 反向跟单
+						</label>
+					</li>
+					<li><label><font color="#ff0000">* </font>密码：<input type="text" name="password" required value="" class="ipt" /></label></li>
+					<li>
+						<input type="submit" value="保存" class="submitBtn" />
+						<input type="button" value="取消" onclick="closeEditPlatformStrategy()" class="cancelBtn" />
+					</li>
+				</ul>
+			</form>	
 		</div>
 	</body>
 </html>

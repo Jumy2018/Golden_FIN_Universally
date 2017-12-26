@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.finuniversally.mapper.AccountMapper">
- 	<select id="getTradePlatformById" resultMap="com.finuniversally.model.TradePlatform" >
- 		SELECT ID,PLATFORM_NAME as name FROM GFU_TRADE_PLATFORM
+ <mapper namespace="com.finuniversally.mapper.TradePlatformMapper">
+ 	<resultMap id="tradePlatFormResultMap" type="com.finuniversally.model.TradePlatform">
+ 		<id property="id" column="ID"/>
+ 		<result property="name" column="PLATFORM_NAME"/>
+ 	</resultMap>
+ 	<!-- 根据ID获取交易平台 -->
+ 	<select id="getTradePlatformById" resultMap="tradePlatFormResultMap" parameterType="long">
+ 		SELECT * FROM GFU_TRADE_PLATFORM WHERE ID=#{id}
+ 	</select>
+ 	<!-- 获取所有的交易平台 -->
+ 	<select id="getAllPlatform" resultMap="tradePlatFormResultMap">
+ 		SELECT * FROM GFU_TRADE_PLATFORM
  	</select>
  </mapper>
 	

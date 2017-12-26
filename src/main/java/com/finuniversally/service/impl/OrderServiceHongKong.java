@@ -2,7 +2,8 @@ package com.finuniversally.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.finuniversally.dao.OrderDao;
+
+import com.finuniversally.mapper.OrderDao;
 import com.finuniversally.untils.TransFormDataSource;
 
 

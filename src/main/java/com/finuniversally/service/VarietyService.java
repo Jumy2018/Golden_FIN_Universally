@@ -10,6 +10,13 @@ import com.finuniversally.model.Variety;
  * 2017年12月14日下午10:20:39
  */
 public interface VarietyService {
+	/**
+	 * 获取所有品种
+	 * @return
+	 * @author riseSun
+	
+	 * 2017年12月26日上午1:05:18
+	 */
 	public List<Variety> getVarietys();
 	/**
 	 * 根据名称获取品种

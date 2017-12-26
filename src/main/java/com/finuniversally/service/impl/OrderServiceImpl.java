@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finuniversally.dao.OrderDao;
+import com.finuniversally.mapper.OrderDao;
 import com.finuniversally.service.OrderService;
 import com.finuniversally.untils.TransFormDataSource;
 import com.finuniversally.vo.StatisticsPlatformVo;
