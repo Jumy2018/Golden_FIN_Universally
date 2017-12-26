@@ -37,8 +37,9 @@
 		});
 		//编辑交易账户
 		function editAccount(obj){
+			className = $(this).attr('class');
 			$('#dialogBg').fadeIn(300);
-			$('#dialog').fadeIn();
+			$('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
 			var platformId = $(obj).closest("tr").find("#platformIdVal").val();
 			var username = $(obj).closest("tr").find("#usernameVal").val();
 			var password = $(obj).closest("tr").find("#passwordVal").val();
@@ -67,8 +68,9 @@
 		}
 		//编辑平台跟单策略
 		function editPlatformStrategy(){
+			className = $(this).attr('class');
 			$('#dialogBg').fadeIn(300);
-			$('#platformStrategyDiv').fadeIn();
+			$('#platformStrategyDiv').removeAttr('class').addClass('animated '+className+'').fadeIn();
 		}
 		function closeEditPlatformStrategy(){
 			$('#dialogBg').fadeOut(300,function(){
@@ -238,7 +240,7 @@
 			<div class="dialogTop">
 				<div align="left"><span>平台跟单</span></div>
 			</div>
-		<form action="account/add" method="post" id="editForm">
+			<form action="account/add" method="post" id="editForm">
 				<ul class="editInfos">
 					<li hidden="hidden">
 						<input hidden="hidden" name="id"/>
