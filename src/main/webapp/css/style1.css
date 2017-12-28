@@ -276,3 +276,15 @@
  	background: #b63b4d;
  	color: #FFF;
  }
+ .button1{
+ 	border-width: 0px;
+    position: absolute;
+    width: 71px;
+    height: 35px;
+    background: inherit;
+    background-color: rgba(40, 165, 154, 1);
+    border: none;
+    border-radius: 5px;
+    top:25%; 
+    right: 5%
+ }

@@ -64,7 +64,9 @@
 		}
 		//删除交易账号(还没做确认删除弹层)
 		function delAccount(accId){
-			window.location="account/del?accountId="+accId;
+			if(confirm("是否删除该账户？")){
+				window.location="account/del?accountId="+accId;
+			}
 		}
 		//编辑平台跟单策略
 		function editPlatformStrategy(){
@@ -88,14 +90,14 @@
 				<!-- 品种查询div -->
 				<div class="search1">
 					<p>
-						<span style="font-family: '微软雅黑';">品种：</span>
+						<span style="font-family: '微软雅黑'; position: absolute; top:33%; left: 5%; color: black">品种：</span>
 					</p>
-					<select id="variety">
+					<select id="variety" style="font-family: '微软雅黑'; position: absolute; top:33%; left: 8%; width: 10%;">
 						<c:forEach items="${varietyList }" var="varietyList">
 							<option value="${varietyList.varietyName }">${varietyList.varietyName }</option>
 						</c:forEach>
 					</select>
-					<button onclick="searchVariety();">查询</button>
+					<button onclick="searchVariety();" class="button1"><span style="font-family: '微软雅黑'; color: white">查询</span></button>
 				</div>
 				<div class="jingtoucun">
 					<div class="font1">
@@ -199,7 +201,10 @@
 								<input hidden="hidden" value="${account.username}" id="usernameVal"/>
 								<input hidden="hidden" value="${account.password}" id="passwordVal"/>
 							</td>
-							<td><span style="cursor: pointer;color: blue;" onclick="editAccount(this)">修改</span> <span style="cursor: pointer;color: blue;" onclick="delAccount('${account.id}')">删除</span></td>
+							<td>
+								<span style="cursor: pointer;color: blue;" onclick="editAccount(this)">修改</span> 
+								<span style="cursor: pointer;color: blue;" onclick="delAccount('${account.id}')">删除</span>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -241,31 +246,55 @@
 				<div align="left"><span>平台跟单</span></div>
 			</div>
 			<form action="account/add" method="post" id="editForm">
-				<ul class="editInfos">
-					<li hidden="hidden">
-						<input hidden="hidden" name="id"/>
-					</li>
-					<li>
-						<label><br><br>
-							<font color="#ff0000">* </font>
-							平台：MT4
-						</label>
-						<label>
-							<font color="#ff0000">* </font>
-							品种
-						</label>
-					</li>
-					<li>
-						是否跟单: 
-						<input type="radio" name="strategyDirection" value="正向跟单" class="ipt">正向跟单
-						<input type="radio" name="strategyDirection" value="反向跟单" class="ipt"/>反向跟单
-					</li>
-					<li><label><font color="#ff0000">* </font>密码：<input type="text" name="password" required value="" class="ipt" /></label></li>
-					<li>
-						<input type="submit" value="保存" class="submitBtn" />
-						<input type="button" value="取消" onclick="closeEditPlatformStrategy()" class="cancelBtn" />
-					</li>
-				</ul>
+				<table style="font-family: '微软雅黑'; font-size: 16; border-collapse:separate; border-spacing:0px 10px;">
+					<tr></tr>
+					<tr>
+						<td width="20%" align="right">平台：</td>
+						<td width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MT4</td>
+						<td width="10%" align="right">品种：</td>
+						<td width="45%">&nbsp;&nbsp;&nbsp;&nbsp;黄金</td>
+					</tr>
+					<tr>
+						<td align="right">是否跟单：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="strategyDirection" value="正向跟单" class="ipt"/>正向跟单
+							<input type="radio" name="strategyDirection" value="反向跟单" class="ipt"/>反向跟单
+						</td>
+					</tr>
+					<tr>
+						<td align="right">下单手数：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							后台净头寸每变化<input type="text" value="10" style="width: 40px"/>手，跟单<input type="text" value="1" style="width: 25px"  />手
+						</td>
+					</tr>
+					<tr>
+						<td align="right">单笔最大止盈：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
+							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+						</td>
+					</tr>
+					<tr>
+						<td align="right">单笔最大止损：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
+							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+						</td>
+					</tr>
+					<tr>
+						<td align="right">跟单止损：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
+							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+						</td>
+					</tr>
+					<tr>
+						<td align="right">跟单账号：</td>
+						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+							<select style="width: 15%"><option>CPB</option><option>.........</option></select>
+						</td>
+					</tr>
+				</table>
 			</form>	
 		</div>
 	</body>
