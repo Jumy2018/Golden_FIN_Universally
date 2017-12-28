@@ -243,14 +243,14 @@
 		<!-- 跟单策略弹层 -->
 		<div id="platformStrategyDiv" class="animated">
 			<div class="dialogTop">
-				<div align="left"><span>平台跟单</span></div>
+				<div align="left"><span style="font-size: 25;">平台跟单</span></div>
 			</div>
 			<form action="account/add" method="post" id="editForm">
-				<table style="font-family: '微软雅黑'; font-size: 16; border-collapse:separate; border-spacing:0px 10px;">
+				<table style="font-family: '微软雅黑'; font-size: 14; border-collapse:separate; border-spacing:0px 10px;">
 					<tr></tr>
 					<tr>
-						<td width="20%" align="right">平台：</td>
-						<td width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MT4</td>
+						<td width="25%" align="right">平台：</td>
+						<td width="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MT4</td>
 						<td width="10%" align="right">品种：</td>
 						<td width="45%">&nbsp;&nbsp;&nbsp;&nbsp;黄金</td>
 					</tr>
@@ -292,6 +292,12 @@
 						<td align="right">跟单账号：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
 							<select style="width: 15%"><option>CPB</option><option>.........</option></select>
+						</td>
+					</tr>
+					<tr>
+						<td  align="center" colspan="4">
+							<input type="submit" value="完成" class="submitBtn" />
+							<input type="button" value="取消" onclick="closeEditPlatformStrategy()" class="cancelBtn" />
 						</td>
 					</tr>
 				</table>
