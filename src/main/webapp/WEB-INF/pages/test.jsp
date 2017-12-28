@@ -250,13 +250,15 @@
 							<font color="#ff0000">* </font>
 							平台：MT4
 						</label>
+						<label>
+							<font color="#ff0000">* </font>
+							品种
+						</label>
 					</li>
 					<li>
-						<label>
-							是否跟单: 
-								<input type="radio" name="strategyDirection" value=""/> 正向跟单
-								<input type="radio" name="strategyDirection" value=""/> 反向跟单
-						</label>
+						是否跟单: 
+						<input type="radio" name="strategyDirection" value="正向跟单" class="ipt">正向跟单
+						<input type="radio" name="strategyDirection" value="反向跟单" class="ipt"/>反向跟单
 					</li>
 					<li><label><font color="#ff0000">* </font>密码：<input type="text" name="password" required value="" class="ipt" /></label></li>
 					<li>
