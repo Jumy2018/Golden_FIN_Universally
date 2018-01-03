@@ -69,15 +69,46 @@
 			}
 		}
 		//编辑平台跟单策略
-		function editPlatformStrategy(){
+		function editPlatformStrategy(selectedPlatformId , selectedPlatformName){
 			className = $(this).attr('class');
 			$('#dialogBg').fadeIn(300);
 			$('#platformStrategyDiv').removeAttr('class').addClass('animated '+className+'').fadeIn();
+			//提供平台名称
+			$('#platformNameSpan').html(selectedPlatformName);
+			var platformHiddens = $("input[name='platform.id']");
+			$(platformHiddens[0]).val(selectedPlatformId);
 		}
 		function closeEditPlatformStrategy(){
 			$('#dialogBg').fadeOut(300,function(){
 				$('#platformStrategyDiv').addClass('bounceOutUp').fadeOut();
 			});
+		}
+		/*初始化单笔最大止盈，单笔最大止损，最大止损的值*/
+		function initValue(){
+			//单笔最大止盈
+			var singleProfitLimitFlag = $($("input[name='singleProfitLimitFlag']:checked")[0]);
+			var singleProfitLimit = $($("input[name='singleProfitLimit']")[0]);
+			if(singleProfitLimitFlag.val() != "-1"){
+				singleProfitLimit.val($("#singleProfitLimitVal").val());
+			}else{
+				singleProfitLimit.val("-1");
+			}
+			//单笔最大止损
+			var singleLoseLimitFlag = $($("input[name='singleLoseLimitFlag']:checked")[0]);
+			var singleLoseLimit = $($("input[name='singleLoseLimit']")[0]);
+			if(singleLoseLimitFlag.val() != "-1"){
+				singleLoseLimit.val($("#singleLoseLimitVal").val());
+			}else{
+				singleLoseLimit.val("-1");
+			}
+			//最大止损
+			var orderLostLimitFlag = $($("input[name='orderLostLimitFlag']:checked")[0]);
+			var orderLostLimit = $($("input[name='orderLostLimit']")[0]);
+			if(orderLostLimitFlag.val() != "-1"){
+				orderLostLimit.val($("#orderLostLimitVal").val());
+			}else{
+				orderLostLimit.val("-1");
+			}
 		}
 	</script>
 	</head>
@@ -163,7 +194,7 @@
 						<td><strong>操作</strong></td>
 					<c:forEach items="${staList }" var="staList">
 						<tr align="center">
-							<td>${staList.platformName }</td>
+							<td>${staList.customerPlatform.name}</td>
 							<td>${staList.multipleTotalHolding }</td>
 							<td>${staList.multipleTotalAveragePrice }</td>
 							<td>${staList.emptyTotalHolding }</td>
@@ -177,7 +208,7 @@
 							<td><fmt:formatNumber pattern="#.####" value="${staList.offsetGainAndLoss }"/></td>
 							<td><fmt:formatNumber pattern="#.####" value="${staList.totalProfitAndLoss }"/></td>
 							<td>
-								<span style="cursor: pointer;color: blue;" onclick="editPlatformStrategy('${staList.platformName}')">跟单</span>
+								<span style="cursor: pointer;color: blue;" onclick="editPlatformStrategy('${staList.customerPlatform.id}','${staList.customerPlatform.name}')">跟单</span>
 							</td>
 						</tr>
 					</c:forEach>
@@ -245,58 +276,74 @@
 			<div class="dialogTop">
 				<div align="left"><span style="font-size: 25;">平台跟单</span></div>
 			</div>
-			<form action="account/add" method="post" id="editForm">
+			<form action="strategy/platform/add" method="post" id="editForm"  onsubmit="initValue()">
 				<table style="font-family: '微软雅黑'; font-size: 14; border-collapse:separate; border-spacing:0px 10px;">
 					<tr></tr>
 					<tr>
-						<td width="25%" align="right">平台：</td>
-						<td width="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MT4</td>
-						<td width="10%" align="right">品种：</td>
-						<td width="45%">&nbsp;&nbsp;&nbsp;&nbsp;黄金</td>
+						<td width="25%" align="right">
+							平台：<span id="platformNameSpan"></span>
+							<input type="hidden" name="platform.id"/>
+						</td>
+						<td width="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td width="10%" align="right">品种：
+								<input type="hidden" value="${seletedVariety.id}" name="variety.id"/>
+							</td>
+						<td width="45%">&nbsp;&nbsp;&nbsp;&nbsp;${seletedVariety.varietyName}</td>
 					</tr>
 					<tr>
 						<td align="right">是否跟单：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="strategyDirection" value="正向跟单" class="ipt"/>正向跟单
-							<input type="radio" name="strategyDirection" value="反向跟单" class="ipt"/>反向跟单
+							<input type="radio" name="direction" value="1" class="ipt"/>正向跟单
+							<input type="radio" name="direction" value="-1" class="ipt"/>反向跟单
 						</td>
 					</tr>
 					<tr>
 						<td align="right">下单手数：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							后台净头寸每变化<input type="text" value="10" style="width: 40px"/>手，跟单<input type="text" value="1" style="width: 25px"  />手
+							后台净头寸每变化<input type="text" value="10" style="width: 40px" name="netPositionChangedFrequency"/>
+								手，跟单<input type="text" value="1" style="width: 25px" name="followingCount"/>手
 						</td>
 					</tr>
 					<tr>
 						<td align="right">单笔最大止盈：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
-							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+							<input type="radio" name="singleProfitLimitFlag" value="-1" class="ipt" checked="checked"/>不设
+							<input type="radio" name="singleProfitLimitFlag" class="ipt"/>
+							<input type="text" id="singleProfitLimitVal" style="width:80px;"/>美金
+							<input type="hidden" name="singleProfitLimit"/>
 						</td>
 					</tr>
 					<tr>
 						<td align="right">单笔最大止损：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
-							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+							<input type="radio" name="singleLoseLimitFlag" value="-1" class="ipt" checked="checked"/>不设
+							<input type="radio" name="singleLoseLimitFlag" class="ipt"/>
+							<input type="text" id="singleLoseLimitVal" style="width: 80px"/>美金
+							<input type="hidden" name="singleLoseLimit"/>
 						</td>
 					</tr>
 					<tr>
 						<td align="right">跟单止损：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="" value="正向跟单" class="ipt"/>不设
-							<input type="radio" name="" value="反向跟单" class="ipt"/><input type="text" value="" style="width: 80px"/>美金
+							<input type="radio" name="orderLostLimitFlag" value="-1" class="ipt" checked="checked"/>不设
+							<input type="radio" name="orderLostLimitFlag" class="ipt"/>
+							<input type="text" id="orderLostLimitVal" style="width: 80px"/>美金
+							<input type="hidden" name="orderLostLimit">
 						</td>
 					</tr>
 					<tr>
 						<td align="right">跟单账号：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<select style="width: 15%"><option>CPB</option><option>.........</option></select>
+							<select style="width: 15%" name="account.id">			
+								<c:forEach items="${allAccounts}" var="account">
+									<option value="${account.id}">${account.platformName}-${account.username}</option>
+								</c:forEach>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<td  align="center" colspan="4">
-							<input type="submit" value="完成" class="submitBtn" />
+							<input type="submit" value="完成" class="submitBtn"/>
 							<input type="button" value="取消" onclick="closeEditPlatformStrategy()" class="cancelBtn" />
 						</td>
 					</tr>

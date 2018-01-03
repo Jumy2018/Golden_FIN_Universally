@@ -1,5 +1,7 @@
 package com.finuniversally.vo;
 
+import com.finuniversally.model.CustomerPlatform;
+
 /**
  * 
  * @author riseSun
@@ -7,7 +9,7 @@ package com.finuniversally.vo;
  * 2017年11月29日下午10:51:03
  */
 public class StatisticsPlatformVo {
-	private String platformName;//平台名
+	private CustomerPlatform customerPlatform;//客户数据平台
 	private double netPosition; // 净头寸
 	private double netPositionHourly; //一小时净头
 	private double multipleTotalHolding; //多总持仓  买入手数
@@ -68,12 +70,7 @@ public class StatisticsPlatformVo {
 	public void setEmptyTotalAveragePrice(double emptyTotalAveragePrice) {
 		this.emptyTotalAveragePrice = emptyTotalAveragePrice;
 	}
-	public String getPlatformName() {
-		return platformName;
-	}
-	public void setPlatformName(String platformName) {
-		this.platformName = platformName;
-	}
+	
 
 	/**
 	 * 多曝点 = 多总均价 - 13;
@@ -109,5 +106,11 @@ public class StatisticsPlatformVo {
 	}
 	public void setOpsitionGainAndLoss(double opsitionGainAndLoss) {
 		this.opsitionGainAndLoss = opsitionGainAndLoss;
+	}
+	public CustomerPlatform getCustomerPlatform() {
+		return customerPlatform;
+	}
+	public void setCustomerPlatform(CustomerPlatform customerPlatform) {
+		this.customerPlatform = customerPlatform;
 	}
 }

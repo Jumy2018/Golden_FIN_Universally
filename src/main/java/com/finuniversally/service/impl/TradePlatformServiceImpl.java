@@ -15,9 +15,9 @@ import com.finuniversally.untils.TransFormDataSource;
 
 @Component
 public class TradePlatformServiceImpl implements TradePlatformService{
+
 	@Autowired
 	private TradePlatformMapper tradePlatformMapper;
-	
 	
 	@Override
 	public List<TradePlatform> getAllPlatform() {

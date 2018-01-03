@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.finuniversally.mapper.OrderDao;
+import com.finuniversally.model.CustomerPlatform;
+import com.finuniversally.service.CustomerPlatformService;
 import com.finuniversally.service.OrderService;
 import com.finuniversally.untils.TransFormDataSource;
 import com.finuniversally.vo.StatisticsPlatformVo;
@@ -17,6 +19,9 @@ import com.finuniversally.vo.StatisticsVo;
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderServiceHongKong orderServiceHongKong;
+	
+	@Autowired
+	private CustomerPlatformService customerPlatformService;
 	
 	/**
 	 * 获取统计数据
@@ -72,23 +77,26 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<StatisticsPlatformVo> getStatisticsPlatformVoList(String variety){
 		List<StatisticsPlatformVo> statisticsPlatformVoList = new ArrayList<StatisticsPlatformVo>();
-		String[] paltform = {"orders75","orders76"};
-		for(int i=0;i<paltform.length;i++) {
+		//String[] paltform = {"orders75","orders76"};
+		//获取所有的客户数据平台
+		List<CustomerPlatform> allPlatforms = customerPlatformService.getAllPlatform();
+		for(CustomerPlatform platform : allPlatforms) {
+			String platformName = platform.getName();
 			StatisticsPlatformVo statisticsPlatformVo = new StatisticsPlatformVo();
-			statisticsPlatformVo.setPlatformName(paltform[i]);
+			statisticsPlatformVo.setCustomerPlatform(platform);
 			//多总持仓
-			Double multipleTotalHolding = getMultipleTotalHolding(paltform[i],variety);
+			Double multipleTotalHolding = getMultipleTotalHolding(platformName,variety);
 			statisticsPlatformVo.setMultipleTotalHolding(multipleTotalHolding);
 			//空总持仓
-			Double emptyTotalHolding = getEmptyTotalHolding(paltform[i],variety);
+			Double emptyTotalHolding = getEmptyTotalHolding(platformName,variety);
 			statisticsPlatformVo.setEmptyTotalHolding(emptyTotalHolding);
 			//1小时头寸
-			Double netPositionHourly = getNetPositionHourly(paltform[i],variety);
+			Double netPositionHourly = getNetPositionHourly(platformName,variety);
 			statisticsPlatformVo.setNetPositionHourly(netPositionHourly);
 			//多总价
-			Double multipleTotalPrice = getMultipleTotalPrice(paltform[i],variety);
+			Double multipleTotalPrice = getMultipleTotalPrice(platformName,variety);
 			//空总价
-			Double emptyTotalPrice = getEmptyTotalPrice(paltform[i],variety);
+			Double emptyTotalPrice = getEmptyTotalPrice(platformName,variety);
 			//多总均价
 			statisticsPlatformVo.setMultipleTotalAveragePrice(multipleTotalHolding==0?0:multipleTotalPrice/multipleTotalHolding);
 			//空总均价
@@ -100,7 +108,7 @@ public class OrderServiceImpl implements OrderService{
 			//买入市价
 			Double marketBuyPrice = orderServiceHongKong.getMarketPrice("bid", variety);
 			//平仓盈亏
-			Double offsetGainAndLoss = getOffsetGainAndLoss(paltform[i],variety);
+			Double offsetGainAndLoss = getOffsetGainAndLoss(platformName,variety);
 			statisticsPlatformVo.setOffsetGainAndLoss(offsetGainAndLoss);
 			//做多持仓盈亏
 			Double multipleGainAndLoss = multipleTotalHolding*marketSellPrice-multipleTotalPrice;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.finuniversally.mapper.CustomerPlatformMapper">
+ 	<resultMap id="customerPlatFormResultMap" type="com.finuniversally.model.CustomerPlatform">
+ 		<id property="id" column="ID"/>
+ 		<result property="name" column="PLATFORM_NAME"/>
+ 	</resultMap>
+ 	<!-- 获取所有的交易平台 -->
+ 	<select id="getAllPlatform" resultMap="customerPlatFormResultMap">
+ 		SELECT * FROM GFU_CUSTOMER_PLATFORM
+ 	</select>
+ </mapper>
+	

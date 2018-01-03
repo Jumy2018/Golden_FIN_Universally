@@ -51,6 +51,9 @@ public class PlatformCashController {
 			varietyName = varietyList.get(0).getVarietyName();
 		}
 		Variety variety = varietyService.getVarietyByName(varietyName);
+
+		//将品种暂存到页面
+		model.addAttribute("seletedVariety",variety);
 	
 		//获取统计数据
 		StatisticsVo statisticsVo = orderService.getStaticsVo(variety.getVarietyCode());

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.finuniversally.mapper.PlatformStrategyMapper">
+ 	<!-- 结果集 -->
+ 	<resultMap type="com.finuniversally.model.PlatformStrategy" id="platformStrategyResultMap">
+ 		
+ 	</resultMap>
+ 	
+ 	<!-- 插入Account -->
+ 	<insert id="save" parameterType="com.finuniversally.model.PlatformStrategy" useGeneratedKeys="true">
+ 	</insert>
+ 	
+ 	<!-- 查询所有Account -->
+ 	<select id="get" resultMap="platformStrategyResultMap" >
+ 	</select>
+ 	
+ 	<!-- 根据ID查询 -->
+	<select id="getById" parameterType="long" resultMap="platformStrategyResultMap">
+	</select>
+	
+ 	<!-- 更新Account -->
+ 	<update id="update" parameterType="com.finuniversally.model.PlatformStrategy">
+ 	</update>
+ 	
+ 	<!-- 删除Account -->
+ 	<delete id="del" parameterType="com.finuniversally.model.PlatformStrategy">
+ 	</delete>
+ </mapper>
+	
