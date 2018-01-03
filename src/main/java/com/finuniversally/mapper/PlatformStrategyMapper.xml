@@ -8,7 +8,9 @@
  	</resultMap>
  	
  	<!-- 插入Account -->
- 	<insert id="save" parameterType="com.finuniversally.model.PlatformStrategy" useGeneratedKeys="true">
+ 	<insert id="savePlatformStrategy" parameterType="com.finuniversally.model.PlatformStrategy" useGeneratedKeys="true">
+ 		INSERT INTO GFU_PLATFORM_STRATEGY (PLATFORM_ID,VARIETY_ID,FOLLOWING_ACCOUNT_ID,DIRECTION,NET_POSITION_BASE,CHANGED_COUNT,FOLLOWING_COUNT,SINGLE_PROFIT,SINGLE_LOSE,TOTAL_LOSE,STRATEGY_STATUS) 
+ 		VALUES(#{platform.id},#{variety.id},#{account.id},#{direction},#{baseNetPosition},#{netPositionChangedFrequency},#{followingCount},#{singleProfitLimit},#{singleLoseLimit},#{orderLostLimit},#{status})
  	</insert>
  	
  	<!-- 查询所有Account -->

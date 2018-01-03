@@ -28,6 +28,9 @@ public class PlatformStrategy {
 	private Double singleLoseLimit;
 	//跟单止损
 	private Double orderLostLimit;
+	//状态
+	private int status;
+
 	
 	
 	
@@ -97,5 +100,11 @@ public class PlatformStrategy {
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

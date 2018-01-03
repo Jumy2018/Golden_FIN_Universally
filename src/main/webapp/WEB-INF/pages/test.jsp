@@ -69,14 +69,16 @@
 			}
 		}
 		//编辑平台跟单策略
-		function editPlatformStrategy(selectedPlatformId , selectedPlatformName){
+		function editPlatformStrategy(selectedPlatformId,selectedPlatformName){
 			className = $(this).attr('class');
 			$('#dialogBg').fadeIn(300);
 			$('#platformStrategyDiv').removeAttr('class').addClass('animated '+className+'').fadeIn();
 			//提供平台名称
 			$('#platformNameSpan').html(selectedPlatformName);
-			var platformHiddens = $("input[name='platform.id']");
-			$(platformHiddens[0]).val(selectedPlatformId);
+			var platformHiddensForName = $("input[name='platform.name']");
+			var platformHiddensForId = $("input[name='platform.id']");
+			$(platformHiddensForName[0]).val(selectedPlatformName);
+			$(platformHiddensForId[0]).val(selectedPlatformId);
 		}
 		function closeEditPlatformStrategy(){
 			$('#dialogBg').fadeOut(300,function(){
@@ -282,18 +284,20 @@
 					<tr>
 						<td width="25%" align="right">
 							平台：<span id="platformNameSpan"></span>
-							<input type="hidden" name="platform.id"/>
+							<input type="hidden" name="platform.id" value="${platform.id}"/>
+							<input type="hidden" name="platform.name" value="${platform.name}"/>
 						</td>
 						<td width="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							<td width="10%" align="right">品种：
 								<input type="hidden" value="${seletedVariety.id}" name="variety.id"/>
+								<input type="hidden" value="${seletedVariety.varietyCode}" name="variety.varietyCode"/>
 							</td>
 						<td width="45%">&nbsp;&nbsp;&nbsp;&nbsp;${seletedVariety.varietyName}</td>
 					</tr>
 					<tr>
 						<td align="right">是否跟单：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="direction" value="1" class="ipt"/>正向跟单
+							<input type="radio" name="direction" value="1" class="ipt" checked="checked"/>正向跟单
 							<input type="radio" name="direction" value="-1" class="ipt"/>反向跟单
 						</td>
 					</tr>

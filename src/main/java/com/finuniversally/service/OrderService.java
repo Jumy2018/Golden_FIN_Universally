@@ -31,4 +31,14 @@ public interface OrderService{
 	 * 2017年12月24日下午2:18:36
 	 */
 	public List<StatisticsPlatformVo> getStatisticsPlatformVoList(String variety);
+	/**
+	 * 获取净头寸
+	 * @param platform
+	 * @param variety
+	 * @return
+	 * @author riseSun
+	
+	 * 2018年1月3日下午10:32:57
+	 */
+	public Double getNetPosition(String platform,String variety);
 }

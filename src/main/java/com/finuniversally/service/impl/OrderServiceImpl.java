@@ -162,4 +162,9 @@ public class OrderServiceImpl implements OrderService{
 	public Double getNetPositionHourly(String platform,String variety) {
 		return orderServiceHongKong.getNetPositionHourly(variety);
 	}
+	@Override
+	public Double getNetPosition(String platform, String variety) {
+		return orderServiceHongKong.getMultipleTotalHolding(platform, variety) 
+				- orderServiceHongKong.getEmptyTotalHolding(platform, variety);
+	}
 }

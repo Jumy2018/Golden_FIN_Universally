@@ -16,5 +16,5 @@ public interface PlatformStrategyMapper {
 	
 	 * 2018年1月3日下午10:20:21
 	 */
-	public void add(PlatformStrategy platformStrategy);
+	public void savePlatformStrategy(PlatformStrategy platformStrategy);
 }
