@@ -38,7 +38,7 @@
 		//编辑交易账户
 		function editAccount(obj){
 			className = $(this).attr('class');
-			$('#dialogBg').fadeIn(300);
+			$('#dialogBg').fadeIn(100);
 			$('#dialog').removeAttr('class').addClass('animated '+className+'').fadeIn();
 			var platformId = $(obj).closest("tr").find("#platformIdVal").val();
 			var username = $(obj).closest("tr").find("#usernameVal").val();
@@ -58,7 +58,7 @@
 			$(idObj[0]).val(id);
 		}
 		function closeEditAccount(){
-			$('#dialogBg').fadeOut(300,function(){
+			$('#dialogBg').fadeOut(100,function(){
 				$('#dialog').addClass('bounceOutUp').fadeOut();
 			});
 		}
@@ -71,7 +71,7 @@
 		//编辑平台跟单策略
 		function editPlatformStrategy(selectedPlatformId,selectedPlatformName){
 			className = $(this).attr('class');
-			$('#dialogBg').fadeIn(300);
+			$('#dialogBg').fadeIn(100);
 			$('#platformStrategyDiv').removeAttr('class').addClass('animated '+className+'').fadeIn();
 			//提供平台名称
 			$('#platformNameSpan').html(selectedPlatformName);
@@ -81,7 +81,7 @@
 			$(platformHiddensForId[0]).val(selectedPlatformId);
 		}
 		function closeEditPlatformStrategy(){
-			$('#dialogBg').fadeOut(300,function(){
+			$('#dialogBg').fadeOut(100,function(){
 				$('#platformStrategyDiv').addClass('bounceOutUp').fadeOut();
 			});
 		}
@@ -338,7 +338,7 @@
 					<tr>
 						<td align="right">跟单账号：</td>
 						<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
-							<select style="width: 15%" name="account.id">			
+							<select style="width: 40%;align-items: center;height: 25px" name="account.id">			
 								<c:forEach items="${allAccounts}" var="account">
 									<option value="${account.id}">${account.platformName}-${account.username}</option>
 								</c:forEach>
