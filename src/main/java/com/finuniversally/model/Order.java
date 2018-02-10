@@ -16,7 +16,7 @@ public class Order {
 	//商品
 	private String symbol;
 	//多空(0=多,1=空)
-	private Long cmd;
+	private Integer cmd;
 	//手数
 	private Double qty;
 	//开仓价位
@@ -50,10 +50,10 @@ public class Order {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	public Long getCmd() {
+	public Integer getCmd() {
 		return cmd;
 	}
-	public void setCmd(Long cmd) {
+	public void setCmd(Integer cmd) {
 		this.cmd = cmd;
 	}
 	public Double getQty() {

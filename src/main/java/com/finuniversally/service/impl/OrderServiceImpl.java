@@ -120,12 +120,6 @@ public class OrderServiceImpl implements OrderService{
 		return statisticsPlatformVoList;
 	}
 	
-	
-	
-	
-	
-	
-	
 	public Double getMultipleTotalHolding(String variety) {
 		return orderServiceHongKong.getMultipleTotalHolding(variety);
 	}

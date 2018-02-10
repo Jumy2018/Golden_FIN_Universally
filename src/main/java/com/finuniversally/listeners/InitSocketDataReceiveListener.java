@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.finuniversally.untils.ConfigUtil;
+import com.finuniversally.untils.PlatformSocket;
 import com.finuniversally.untils.SocketDataReceiveClient;
 
 /**
@@ -24,6 +26,7 @@ public class InitSocketDataReceiveListener implements ServletContextListener{
 	//初始化所有的TCP数据监听
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		//监测Socket启用状态
 		if(!ConfigUtil.getBoolValue(ConfigUtil.INIT_SOCKETDATA_RECEIVE_LISTENER_ENABLE)) {
 			return ;
 		}
@@ -38,15 +41,17 @@ public class InitSocketDataReceiveListener implements ServletContextListener{
 			socket76 = new Socket("116.62.195.204",12001);
 
 		} catch (IOException e) {
-			
 			e.printStackTrace();
+			org.apache.log4j.Logger.getLogger(this.getClass()).error("无法启动Socket数据监听！");
+			System.exit(0);
 		}
-		SocketDataReceiveClient socketDataReceiveClient75 = new SocketDataReceiveClient(socket75); 
+		//获取香港操宝盘的75平台交易数据
+		SocketDataReceiveClient socketDataReceiveClient75 = new SocketDataReceiveClient(new PlatformSocket(socket75,"orders75")); 
+		//获取香港操宝盘的76平台交易数据
+		SocketDataReceiveClient socketDataReceiveClient76 = new SocketDataReceiveClient(new PlatformSocket(socket76,"orders76"));
 
-		SocketDataReceiveClient socketDataReceiveClient76 = new SocketDataReceiveClient(socket76);
-
+		//启用数据监听
 		fixedThreadPool.execute(socketDataReceiveClient75);
-
 		fixedThreadPool.execute(socketDataReceiveClient76);
 	}
 
