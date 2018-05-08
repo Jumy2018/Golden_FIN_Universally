@@ -1,2 +1,6 @@
-/target/
-/.classpath
+
+.classpath
+.project
+.idea
+.settings
+Golden_FIN_Universally.iml
