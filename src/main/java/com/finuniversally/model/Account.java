@@ -1,11 +1,15 @@
 package com.finuniversally.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * 交易账号
  * @author riseSun
  *
  * 2017年12月23日下午5:48:16
  */
+@AllArgsConstructor@NoArgsConstructor
 public class Account {
 	private Long id;
 	//用户名

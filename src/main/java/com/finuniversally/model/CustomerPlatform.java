@@ -1,11 +1,15 @@
 package com.finuniversally.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * 客户数据平台
  * @author riseSun
  *
  * 2017年12月23日上午1:00:09
  */
+@AllArgsConstructor@NoArgsConstructor
 public class CustomerPlatform {
 	
 	private Long id;

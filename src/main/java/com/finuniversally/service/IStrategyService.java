@@ -6,6 +6,7 @@ import com.finuniversally.vo.StrategyVO;
 import java.util.List;
 
 /**
+ *
  * Created by may on 2018/5/7.
  */
 public interface IStrategyService {

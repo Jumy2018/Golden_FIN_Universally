@@ -41,7 +41,6 @@ public class Strategy implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd" , timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date openTime;
-
     //时间戳
     private Long updateTime;
 

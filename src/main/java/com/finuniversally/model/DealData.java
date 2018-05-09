@@ -1,5 +1,7 @@
 package com.finuniversally.model;
 
+import lombok.ToString;
+
 import java.util.Date;
 
 /**
@@ -8,11 +10,18 @@ import java.util.Date;
  *
  * 2018年1月4日上午12:13:54
  */
+@ToString
 public class DealData {
+
+	public static final int CMD_BUY = 0;//多
+	public static final int CMD_SELL = 1;//空
+	public static final int OPENCLOSE_OPEN = 0;//开
+	public static final int OPENCLOSE_CLOSE = 1;//平
+
 	//头
 	private String head;
 	//账号
-	private String account;
+	private String login;
 	//开仓单号
 	private String openOrderNum;
 	//新开仓单号
@@ -24,15 +33,16 @@ public class DealData {
 	//价位
 	private Double price;
 	//时间
+	//private Date createTime;
 	private Date createTime;
 	//多空(0=多,1=空)
 	private Integer cmd;
-	//开平
+	//开平(0=开,1=平)
 	private Integer openClose;
 	//平仓盈亏
 	private Double profit;
-	
-	
+
+
 	//set,get...
 	public String getHead() {
 		return head;
@@ -40,12 +50,15 @@ public class DealData {
 	public void setHead(String head) {
 		this.head = head;
 	}
-	public String getAccount() {
-		return account;
+
+	public String getLogin() {
+		return login;
 	}
-	public void setAccount(String account) {
-		this.account = account;
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
+
 	public String getOpenOrderNum() {
 		return openOrderNum;
 	}
@@ -94,9 +107,11 @@ public class DealData {
 	public void setProfit(Double profit) {
 		this.profit = profit;
 	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}

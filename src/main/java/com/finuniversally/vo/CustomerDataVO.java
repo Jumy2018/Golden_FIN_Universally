@@ -5,7 +5,12 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 策略的客户数据
+ *@Author: May
+ *@param
+ *@Date: 10:24 2018/5/9
+ */
 @Getter@Setter@NoArgsConstructor@AllArgsConstructor@ToString
 public class CustomerDataVO implements Serializable {
     public static final int STATUS_NO=0;//未跟单
