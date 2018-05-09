@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
+ * 合约信息
  * Created by may on 2018/5/7.
  */
 @Getter@Setter

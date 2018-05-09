@@ -1,15 +1,14 @@
 package com.finuniversally.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.finuniversally.model.DealData;
 import com.finuniversally.service.DealService;
-import com.finuniversally.service.OrderService;
+import com.finuniversally.service.IJudgementStrategyService;
+import com.finuniversally.untils.ApplicationContextHolder;
+import com.finuniversally.vo.OrderDealData;
+import org.apache.log4j.Logger;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 处理交易的业务逻辑
@@ -17,16 +16,16 @@ import com.finuniversally.service.OrderService;
  *
  * 2018年1月5日下午8:30:59
  */
-//@Component()
 public class DealServiceImpl implements DealService,Runnable{
 
 	private String socketData;
 	private String platformName;
-	
-	@Autowired
-	private OrderService orderService;
+	private IJudgementStrategyService judgementStrategyServiceImpl = (IJudgementStrategyService) ApplicationContextHolder
+			.getBeanByName("judgementStrategyServiceImpl");
 
-	public DealServiceImpl(String socketData,String platformName) {
+	private static Logger log = Logger.getLogger(DealServiceImpl.class.getName());
+
+	public DealServiceImpl(String socketData, String platformName) {
 		this.socketData = socketData;
 		this.platformName = platformName;
 	}
@@ -35,20 +34,23 @@ public class DealServiceImpl implements DealService,Runnable{
 	public DealData constructor(String dealMsg) {
 		String[] splitArr = dealMsg.split(";");
 		int index = 0;
+		System.out.println(splitArr);
 		DealData dealData = new DealData();
 		try {
 			dealData.setHead(splitArr[index++]);//头
-			dealData.setAccount(splitArr[index++]);//账号
+			dealData.setLogin(splitArr[index++]);//账号
 			dealData.setOpenOrderNum(splitArr[index++]);//开仓单号
 			dealData.setNewOpenOrderNum(splitArr[index++]);//新开仓单号
 			dealData.setVarietyCode(splitArr[index++]);//商品
 			dealData.setCounts(Double.parseDouble(splitArr[index++]));//手数
 			dealData.setPrice(Double.parseDouble(splitArr[index++]));//价位
-			Date createTime = new SimpleDateFormat("yyyymmddHHmiss").parse(splitArr[index++]);
+			String date = splitArr[index++];
+			Date createTime = new SimpleDateFormat("yyyyMMddHHmmss").parse(date);//创建时间
 			dealData.setCreateTime(createTime);//时间
 			dealData.setCmd(Integer.parseInt(splitArr[index++]));//多空
 			dealData.setOpenClose(Integer.parseInt(splitArr[index++]));//开平
 			dealData.setProfit(Double.parseDouble(splitArr[index++]));//平仓盈亏
+
 		}catch (Exception e) {
 			//数据的构造失败，毁灭当前信息
 			e.printStackTrace();
@@ -65,10 +67,10 @@ public class DealServiceImpl implements DealService,Runnable{
 	@Override
 	public Boolean needAnOrder(DealData dealData) {
 		//获取平台当前净头寸
-		Double netPosition = orderService.getNetPosition(platformName, dealData.getVarietyCode());
+		//	Double netPosition = orderService.getNetPosition(platformName, dealData.getVarietyCode());
 		//获取
 		//平台自动下单
-		//1. 
+		//1.
 		return null;
 	}
 
@@ -76,12 +78,24 @@ public class DealServiceImpl implements DealService,Runnable{
 	public void run() {
 		//构造下单数据
 		DealData dealData = constructor(socketData);
-		//是否需要下单
-		Boolean needAnOrder = needAnOrder(dealData);
+		//是否需要下单 TODO 判断卖出的是否还要数量
+		//Boolean needAnOrder = needAnOrder(dealData);
 		//下单
-		if(needAnOrder) {
+		/*if(needAnOrder) {
 			madeAnOrder(dealData);
+		}*/
+		OrderDealData orderDealData = judgementStrategyServiceImpl.getOrderDealData(dealData);
+		System.out.println(orderDealData);
+		log.info(orderDealData.toString());
+		// log.info(judgementStrategyServiceImpl.getCustomerDataVOByKey("xiaoXAUUSD.eDZ").toString());
+		//List<DocumentaryDetailedData> detailedDataByKey = judgementStrategyServiceImpl.getDocumentaryDetailedDataByKey("xiaoXAUUSD.eDZ");
+	/*	for (DocumentaryDetailedData detailedData : detailedDataByKey) {
+			System.out.println(detailedData.toString());
 		}
+		for (CustomerDataVO customerDataVO : judgementStrategyServiceImpl.getCustomerDataVOByKey("xiaoXAUUSD.eDZ")) {
+			System.out.println(customerDataVO.toString());
+		}*/
+
 	}
 
 }

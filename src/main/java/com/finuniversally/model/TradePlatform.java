@@ -1,11 +1,15 @@
 package com.finuniversally.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * 交易平台
  * @author riseSun
  *
  * 2017年12月23日下午5:44:30
  */
+@NoArgsConstructor@AllArgsConstructor
 public class TradePlatform {
 	private Long id;
 	//交易平台名称

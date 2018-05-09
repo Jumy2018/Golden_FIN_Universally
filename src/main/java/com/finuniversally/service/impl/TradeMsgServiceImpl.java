@@ -17,7 +17,7 @@ import javax.jms.Destination;
  */
 
 @Service@Transactional
-public class ITradeMsgServiceImpl implements ITradeMsgService {
+public class TradeMsgServiceImpl implements ITradeMsgService {
 
     @Autowired
     private IProducerService IProducerService;

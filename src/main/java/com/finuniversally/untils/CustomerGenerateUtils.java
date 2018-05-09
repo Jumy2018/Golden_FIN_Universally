@@ -9,11 +9,14 @@ import java.util.*;
 
 /*
 *
-* 初始化客户
+* 初始化客户和策略
 * */
 public abstract class CustomerGenerateUtils {
+    //返回所有总策略，现在没有用处了
     private static List<Strategy> allStrategies = new ArrayList<>();
+    //返回策略的客户数据，现在没有用处了
     private static Map<String, List<CustomerDataVO>> customerDataVOs = new HashMap<>();
+    //返回策略的跟单数据，现在没有用处了
     private static Map<String, List<DocumentaryDetailedData>> detailedDatas = new HashMap<>();
 
     /**
@@ -109,7 +112,12 @@ public abstract class CustomerGenerateUtils {
 
         return detailedData;
     }
-
+    /**
+     * 初始化策略，唯一有用的是这个
+     *@Author: May
+     *@param
+     *@Date: 10:21 2018/5/9
+     */
     public static Strategy getStrategy(){
         Strategy strategy =new Strategy();
         strategy.setId(1L);

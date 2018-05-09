@@ -5,7 +5,7 @@ import com.finuniversally.model.Strategy;
 import com.finuniversally.vo.OrderDealData;
 
 /**
- * 净头寸的变化
+ * 净头寸的策略判断
  * Created by may on 2018/5/8.
  */
 public interface ICheckStrategyService {
