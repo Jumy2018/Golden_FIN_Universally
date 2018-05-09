@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.jms.Destination;
 
 /**
+ *
  * Created by may on 2018/4/25.
  */
 
